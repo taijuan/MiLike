@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">觅房</string>
+    <string name="start_app" translatable="false">开启觅房</string>
+    <string name="page1" translatable="false">首页</string>
+    <string name="page2" translatable="false">觅房头条</string>
+    <string name="page3" translatable="false">找顾问</string>
+    <string name="page4" translatable="false">我的</string>
+</resources>
