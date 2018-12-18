@@ -9,7 +9,7 @@ import android.webkit.WebView
 import com.blankj.utilcode.util.SPUtils
 import com.milike.soft.R
 import com.milike.soft.base.BaseFragment
-import com.milike.soft.base.UrlConstants
+import com.milike.soft.base.DNS
 import com.milike.soft.utils.MiLikeJavascriptInterface
 import com.milike.soft.utils.MiLikeWebViewClient
 import com.milike.soft.utils.getWebUrlSuffix
@@ -24,6 +24,14 @@ class HomeFragmentNew : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         webView.settings.initWebViewSetting()
         webView.webViewClient = object : MiLikeWebViewClient() {
+            override fun onStart(view: WebView, url: String) {
+                loading.visibility = View.VISIBLE
+            }
+
+            override fun onEnd(view: WebView, url: String) {
+                loading.visibility = View.GONE
+            }
+
             override fun interceptUrlLoading(view: WebView, url: String): Boolean {
                 return arrayListOf(
                     "/link",
@@ -34,7 +42,7 @@ class HomeFragmentNew : BaseFragment() {
                     "/map/",
                     "/estate/-pt-1",
                     "/theme/",
-                    "/sz/xprt/",
+                    "/xprt/",
                     "/estate/detail/index/",
                     "/search",
                     "/mysub.htm",
@@ -42,16 +50,10 @@ class HomeFragmentNew : BaseFragment() {
                     "/artifact/"
                 ).any { s -> url.contains(s) }
             }
-
-            override fun onPageFinished(view: WebView?, url: String?) {
-                loading.visibility = View.GONE
-                super.onPageFinished(view, url)
-            }
         }
         webView.addJavascriptInterface(MiLikeJavascriptInterface(webView), "android")
         loadUrl()
         swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#FADB28"), Color.parseColor("#FFDA00"))
-        swipeRefreshLayout.isEnabled = false
         swipeRefreshLayout.setOnRefreshListener {
             loadUrl()
             swipeRefreshLayout.isRefreshing = false
@@ -59,8 +61,7 @@ class HomeFragmentNew : BaseFragment() {
     }
 
     override fun loadUrl() {
-        loading.visibility = View.VISIBLE
         val cityCode = SPUtils.getInstance().getString("cityCode", "sz")
-        webView.loadUrl("${UrlConstants.server}$cityCode/${getWebUrlSuffix()}")
+        webView.loadUrl(getWebUrlSuffix("${DNS.server}$cityCode/"))
     }
 }

@@ -1,5 +1,6 @@
 package com.milike.soft.activity
 
+import android.graphics.Color
 import android.graphics.drawable.StateListDrawable
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +8,9 @@ import android.view.Gravity
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.azhon.appupdate.config.UpdateConfiguration
+import com.azhon.appupdate.manager.DownloadManager
+import com.azhon.appupdate.utils.Constant
 import com.baidu.location.BDAbstractLocationListener
 import com.baidu.location.BDLocation
 import com.baidu.location.LocationClient
@@ -15,8 +19,16 @@ import com.blankj.utilcode.util.SPUtils
 import com.milike.soft.BuildConfig
 import com.milike.soft.R
 import com.milike.soft.base.BaseActivity
-import com.milike.soft.fragment.*
+import com.milike.soft.fragment.ConsultantFragmentNew
+import com.milike.soft.fragment.HeadlineFragmentNew
+import com.milike.soft.fragment.HomeFragmentNew
+import com.milike.soft.fragment.MeFragmentNew
 import kotlinx.android.synthetic.main.activity_home.*
+import org.json.JSONObject
+import java.net.HttpURLConnection
+import java.net.URL
+import java.util.concurrent.Executors
+
 
 class HomeActivity : BaseActivity() {
     private val locationListener: BDAbstractLocationListener by lazy {
@@ -78,6 +90,28 @@ class HomeActivity : BaseActivity() {
         tabItem(R.string.page2, R.drawable.toutiao_selected, R.drawable.toutiao)
         tabItem(R.string.page3, R.drawable.advisor_selected, R.drawable.advisor)
         tabItem(R.string.page4, R.drawable.me_selected, R.drawable.me)
+        getAppVersion()
+    }
+
+    private fun showUpdateDialog(apkUrl: String, desc: String, code: Int) {
+        DownloadManager.getInstance(this)
+            .setApkName("MiLike.apk")
+            .setApkUrl(apkUrl)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setShowNewerToast(true)
+            .setApkVersionCode(code)
+            .setAuthorities(BuildConfig.APPLICATION_ID)
+            .setApkDescription(desc)
+            .setConfiguration(
+                UpdateConfiguration()
+                    .setEnableLog(true)
+                    .setJumpInstallPage(true)
+                    .setDialogButtonTextColor(Color.WHITE)
+                    .setBreakpointDownload(true)
+                    .setShowNotification(true)
+                    .setForcedUpgrade(true)
+            )
+            .download()
     }
 
     private fun tabItem(name: Int, select: Int, normal: Int) {
@@ -102,7 +136,6 @@ class HomeActivity : BaseActivity() {
             exitTime = System.currentTimeMillis()
         } else {
             finish()
-            System.exit(0)
         }
     }
 
@@ -111,4 +144,30 @@ class HomeActivity : BaseActivity() {
         super.onDestroy()
     }
 
+    private fun getAppVersion() {
+        Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors()).submit {
+            try {
+                val url =
+                    URL("http://api.fir.im/apps/latest/5bf6bd49ca87a83627a27824?api_token=65e3d3d8ed721bed0eb86feeaed2d867")
+                val con = url.openConnection() as HttpURLConnection
+                con.requestMethod = "GET"
+                con.readTimeout = Constant.HTTP_TIME_OUT
+                con.connectTimeout = Constant.HTTP_TIME_OUT
+                con.setRequestProperty("Accept-Encoding", "identity")
+                if (con.responseCode == HttpURLConnection.HTTP_OK) {
+                    val json = JSONObject(String(con.inputStream.readBytes()))
+                    val installUrl = json.getString("direct_install_url")
+                    val versionCode = json.getInt("version")
+                    val xx = json.getString("changelog")
+                    runOnUiThread {
+                        showUpdateDialog(installUrl, xx, versionCode)
+                    }
+                }
+                con.disconnect()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
+    }
 }

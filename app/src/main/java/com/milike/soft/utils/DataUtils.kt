@@ -3,9 +3,9 @@ package com.milike.soft.utils
 import com.blankj.utilcode.util.DeviceUtils
 import com.blankj.utilcode.util.SPUtils
 
-fun getWebUrlSuffix(): String {
+fun getWebUrlSuffix(url: String): String {
     val position = SPUtils.getInstance().getString("position")
-    return "?flag=milike" + position + getUIDAndBasicInfo()
+    return url + (if (url.contains("?")) "&" else "?") + "flag=milike" + position + getUIDAndBasicInfo()
 }
 
 private fun getUIDAndBasicInfo(): String {

@@ -18,14 +18,14 @@ import com.milike.soft.activity.WebActivity
 abstract class MiLikeWebViewClient(private val isLogon: Boolean = false) : WebViewClient() {
 
     override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-        super.onPageStarted(view, url, favicon)
         Log.e("zuiwengxxxxxxx", url)
         if (view != null && !url.isNullOrEmpty()) {
-            if (interceptDefUrlLoading(url,view)) {
-                view.stopLoading()
-            } else if (interceptUrlLoading(view, url)) {
-                view.stopLoading()
-                filterAction(url, view)
+            when {
+                interceptDefUrlLoading(url) || interceptUrlLoading(view, url) -> {
+                    view.stopLoading()
+                    filterAction(url, view)
+                }
+                else -> onStart(view, url)
             }
         }
     }
@@ -35,8 +35,7 @@ abstract class MiLikeWebViewClient(private val isLogon: Boolean = false) : WebVi
         Log.e("zuiwengxxxxxxx", url)
         return if (view != null && !url.isEmpty()) {
             when {
-                interceptDefUrlLoading(url,view) -> true
-                interceptUrlLoading(view, url) -> {
+                interceptDefUrlLoading(url) || interceptUrlLoading(view, url) -> {
                     filterAction(url, view)
                     true
                 }
@@ -47,43 +46,40 @@ abstract class MiLikeWebViewClient(private val isLogon: Boolean = false) : WebVi
         }
     }
 
+    override fun onPageFinished(view: WebView?, url: String?) {
+        Log.e("zuiwengxxxxxxx Finish", url.toString())
+        if (view != null && !url.isNullOrEmpty()) {
+            onEnd(view, url)
+        }
+    }
+
     override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
         super.onReceivedError(view, request, error)
+        Log.e("zuiwengxxxxxxx Error", request?.url.toString())
         if (request?.isForMainFrame == true) {
             view?.loadUrl("file:///android_asset/404.html")
         }
     }
 
-    private fun interceptDefUrlLoading(url: String,view:WebView): Boolean {
+    private fun interceptDefUrlLoading(url: String): Boolean {
         return when {
-            url == "js://refreshUrl" ->{
-                view.postDelayed({
-                    view.goBack()
-                },100)
+            url == "js://refreshUrl" -> {
                 true
             }
             url.contains("/login_code.htm") && !isLogon -> {
-                Utils.getApp().startActivity(Intent(Utils.getApp(), WebActivity::class.java).apply {
-                    putExtra("url", url)
-                    putExtra("isLogin", true)
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                })
                 true
             }
             url.startsWith("tel:") || url.startsWith("sms:") || url.startsWith("smsto:") ||
                     url.startsWith("mmsto:") || url.startsWith("geo:") -> {
-                Utils.getApp().startActivity(Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(url)
-                ).apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) })
                 true
             }
             else -> false
         }
     }
 
+    abstract fun onStart(view: WebView, url: String)
     abstract fun interceptUrlLoading(view: WebView, url: String): Boolean
-
+    abstract fun onEnd(view: WebView, url: String)
     private fun filterAction(url: String, view: WebView) {
         if (url.contains("js://jstojava?goBack")) {
             val goBack = Uri.parse(url).getBooleanQueryParameter("goBack", true)
@@ -114,9 +110,26 @@ abstract class MiLikeWebViewClient(private val isLogon: Boolean = false) : WebVi
                     action = "${BuildConfig.APPLICATION_ID}.refresh"
                 })
             }
+        } else if (url == "js://refreshUrl") {
+            view.postDelayed({
+                view.goBack()
+            }, 100)
+        } else if (url.contains("/login_code.htm") && !isLogon) {
+            Utils.getApp().startActivity(Intent(Utils.getApp(), WebActivity::class.java).apply {
+                putExtra("url", url)
+                putExtra("isLogin", true)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            })
+        } else if (url.startsWith("tel:") || url.startsWith("sms:")
+            || url.startsWith("smsto:") || url.startsWith("mmsto:") || url.startsWith("geo:")
+        ) {
+            Utils.getApp().startActivity(Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(url)
+            ).apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) })
         } else {
             (view.context as Activity).startActivity(Intent(view.context, WebActivity::class.java).apply {
-                putExtra("url", "$url${getWebUrlSuffix()}")
+                putExtra("url", getWebUrlSuffix(url))
             })
         }
 
