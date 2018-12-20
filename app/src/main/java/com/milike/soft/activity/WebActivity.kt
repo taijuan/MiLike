@@ -2,6 +2,7 @@ package com.milike.soft.activity
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.webkit.WebView
 import com.milike.soft.R
@@ -33,9 +34,7 @@ class WebActivity : BaseActivity() {
             }
         }
         webView.addJavascriptInterface(MiLikeJavascriptInterface(webView), "android")
-        webView.setOnScrollTop {
-            swipeRefreshLayout.isEnabled = it == 0
-        }
+        swipeRefreshLayout.isEnabled = false
         loadUrl(intent.getStringExtra("url"))
         swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#FADB28"), Color.parseColor("#FFDA00"))
         swipeRefreshLayout.setOnRefreshListener {
@@ -47,4 +46,10 @@ class WebActivity : BaseActivity() {
     private fun loadUrl(data: String) {
         webView.loadUrl(data)
     }
+
+    override fun loadUrl() {
+        webView.reload()
+        Log.e("zuiweng", "refresh")
+    }
+
 }

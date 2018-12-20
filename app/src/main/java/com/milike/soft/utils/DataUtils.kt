@@ -10,10 +10,7 @@ fun getWebUrlSuffix(url: String): String {
 
 private fun getUIDAndBasicInfo(): String {
     val first = com.blankj.utilcode.util.SPUtils.getInstance().getInt("versionCode")
-    return if (first == 0) {
-        "&mid=" + DeviceUtils.getAndroidID() + "&tm=" + System.currentTimeMillis() + "&appPlatform=android&initial=true"
-    } else {
-        "&mid=" + DeviceUtils.getAndroidID() + "&tm=" + System.currentTimeMillis() + "&appPlatform=android&initial=false"
-    }
-
+    return "&mid=${DeviceUtils.getAndroidID()}&tm=${System.currentTimeMillis()}&appPlatform=android&initial=${first == -1}&uuid=${SPUtils.getInstance().getString(
+        "uuid"
+    )}"
 }

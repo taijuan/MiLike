@@ -10,6 +10,7 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.Utils
 import com.milike.soft.BuildConfig
@@ -57,7 +58,11 @@ abstract class MiLikeWebViewClient(private val isLogon: Boolean = false) : WebVi
         super.onReceivedError(view, request, error)
         Log.e("zuiwengxxxxxxx Error", request?.url.toString())
         if (request?.isForMainFrame == true) {
-            view?.loadUrl("file:///android_asset/404.html")
+            if (NetworkUtils.isConnected()) {
+                view?.loadUrl("file:///android_asset/404.html")
+            } else {
+                view?.loadUrl("file:///android_asset/network_error.html")
+            }
         }
     }
 
@@ -111,9 +116,7 @@ abstract class MiLikeWebViewClient(private val isLogon: Boolean = false) : WebVi
                 })
             }
         } else if (url == "js://refreshUrl") {
-            view.postDelayed({
-                view.goBack()
-            }, 100)
+            view.goBack()
         } else if (url.contains("/login_code.htm") && !isLogon) {
             Utils.getApp().startActivity(Intent(Utils.getApp(), WebActivity::class.java).apply {
                 putExtra("url", url)

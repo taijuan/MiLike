@@ -2,6 +2,7 @@ package com.milike.soft.activity
 
 import android.content.Intent
 import android.os.Bundle
+import cn.jpush.android.api.JPushInterface
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.SPUtils
@@ -12,6 +13,8 @@ class WelcomeActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val uuid = JPushInterface.getRegistrationID(this)
+        SPUtils.getInstance().put("uuid", uuid)
         PermissionUtils.permission(PermissionConstants.PHONE, PermissionConstants.LOCATION).callback(object :
             PermissionUtils.SimpleCallback {
             override fun onGranted() {

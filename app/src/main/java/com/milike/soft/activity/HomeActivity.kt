@@ -20,6 +20,7 @@ import com.blankj.utilcode.util.SPUtils
 import com.milike.soft.BuildConfig
 import com.milike.soft.R
 import com.milike.soft.base.BaseActivity
+import com.milike.soft.base.DNS
 import com.milike.soft.fragment.ConsultantFragmentNew
 import com.milike.soft.fragment.HeadlineFragmentNew
 import com.milike.soft.fragment.HomeFragmentNew
@@ -74,7 +75,6 @@ class HomeActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        Log.e("zuiweng", JPushInterface.getRegistrationID(this) + "   11")
         SPUtils.getInstance().put("versionCode", BuildConfig.VERSION_CODE)
         viewPager.adapter = object : androidx.fragment.app.FragmentPagerAdapter(supportFragmentManager) {
             override fun getItem(position: Int) = when (position) {
@@ -150,20 +150,19 @@ class HomeActivity : BaseActivity() {
     private fun getAppVersion() {
         Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors()).submit {
             try {
-                val url =
-                    URL("http://api.fir.im/apps/latest/5bf6bd49ca87a83627a27824?api_token=65e3d3d8ed721bed0eb86feeaed2d867")
+                val url = URL("${DNS.server}getAppUpdate")
                 val con = url.openConnection() as HttpURLConnection
                 con.requestMethod = "GET"
                 con.readTimeout = Constant.HTTP_TIME_OUT
                 con.connectTimeout = Constant.HTTP_TIME_OUT
                 con.setRequestProperty("Accept-Encoding", "identity")
                 if (con.responseCode == HttpURLConnection.HTTP_OK) {
-                    val json = JSONObject(String(con.inputStream.readBytes()))
-                    val installUrl = json.getString("direct_install_url")
-                    val versionCode = json.getInt("version")
-                    val xx = json.getString("changelog")
+                    val json = JSONObject(String(con.inputStream.readBytes())).getJSONObject("vl")
+                    val installUrl = json.getString("apkUrl")
+                    val versionCode = json.getInt("versionName")
+                    val desc = json.getString("updateDesc")
                     runOnUiThread {
-                        showUpdateDialog(installUrl, xx, versionCode)
+                        showUpdateDialog(installUrl, desc, versionCode)
                     }
                 }
                 con.disconnect()

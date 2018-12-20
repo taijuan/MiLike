@@ -13,8 +13,10 @@ class WebView4Scroll(context: Context, attrs: AttributeSet) : WebView(context, a
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        evaluateJavascript("$(\".mf-content\").scrollTop()") { s ->
-            onScrollTop?.invoke(s.toIntOrNull() ?: 0)
+        if (onScrollTop != null) {
+            evaluateJavascript("$(\".mf-content\").scrollTop()") { s ->
+                onScrollTop?.invoke(s.toIntOrNull() ?: 0)
+            }
         }
         return super.onTouchEvent(event)
     }
