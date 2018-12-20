@@ -45,6 +45,7 @@
         <activity android:name=".activity.WebActivity"
                   android:theme="@style/AppTheme"/>
 
+
         <service android:name="com.baidu.location.f"
                  android:enabled="true"
                  android:process=":remote"/>

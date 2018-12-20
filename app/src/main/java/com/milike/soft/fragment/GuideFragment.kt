@@ -26,7 +26,9 @@ class GuideFragment : BaseFragment() {
         if (arguments?.getBoolean("isShow") == true) {
             start.visibility = View.VISIBLE
             start.onClick {
-                startActivity(Intent(activity, HomeActivity::class.java))
+                startActivity(Intent(activity, HomeActivity::class.java).apply {
+                    putExtra("url", activity?.intent?.getStringExtra("url"))
+                })
                 activity?.finish()
             }
         } else {

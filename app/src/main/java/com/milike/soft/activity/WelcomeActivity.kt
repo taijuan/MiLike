@@ -2,6 +2,7 @@ package com.milike.soft.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import cn.jpush.android.api.JPushInterface
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils
@@ -14,6 +15,7 @@ class WelcomeActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val uuid = JPushInterface.getRegistrationID(this)
+        Log.e("zuiweng", uuid)
         SPUtils.getInstance().put("uuid", uuid)
         PermissionUtils.permission(PermissionConstants.PHONE, PermissionConstants.LOCATION).callback(object :
             PermissionUtils.SimpleCallback {
@@ -31,10 +33,14 @@ class WelcomeActivity : BaseActivity() {
         window.decorView.postDelayed({
             val versionCode = SPUtils.getInstance().getInt("versionCode")
             if (BuildConfig.VERSION_CODE > versionCode) {
-                startActivity(Intent(this@WelcomeActivity, GuideActivity::class.java))
+                startActivity(Intent(this@WelcomeActivity, GuideActivity::class.java).apply {
+                    putExtra("url", intent.getStringExtra("url"))
+                })
                 finish()
             } else {
-                startActivity(Intent(this@WelcomeActivity, HomeActivity::class.java))
+                startActivity(Intent(this@WelcomeActivity, HomeActivity::class.java).apply {
+                    putExtra("url", intent.getStringExtra("url"))
+                })
                 finish()
             }
         }, 3000)

@@ -52,4 +52,11 @@ class WebActivity : BaseActivity() {
         Log.e("zuiweng", "refresh")
     }
 
+    override fun onDestroy() {
+        webView?.also {
+            it.removeAllViews()
+            it.destroy()
+        }
+        super.onDestroy()
+    }
 }

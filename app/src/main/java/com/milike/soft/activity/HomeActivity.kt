@@ -1,14 +1,16 @@
 package com.milike.soft.activity
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.StateListDrawable
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
+import android.util.Patterns
 import android.view.Gravity
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import cn.jpush.android.api.JPushInterface
 import com.azhon.appupdate.config.UpdateConfiguration
 import com.azhon.appupdate.manager.DownloadManager
 import com.azhon.appupdate.utils.Constant
@@ -33,6 +35,7 @@ import java.util.concurrent.Executors
 
 
 class HomeActivity : BaseActivity() {
+
     private val locationListener: BDAbstractLocationListener by lazy {
         object : BDAbstractLocationListener() {
             override fun onReceiveLocation(it: BDLocation?) {
@@ -94,6 +97,18 @@ class HomeActivity : BaseActivity() {
         tabItem(R.string.page3, R.drawable.advisor_selected, R.drawable.advisor)
         tabItem(R.string.page4, R.drawable.me_selected, R.drawable.me)
         getAppVersion()
+
+        filterActionToIntent()
+
+    }
+
+    private fun filterActionToIntent() {
+        val url = intent.getStringExtra("url")
+        if (!TextUtils.isEmpty(url) && Patterns.WEB_URL.matcher(url).matches()) {
+            startActivity(Intent(this, WebActivity::class.java).apply {
+                putExtra("url", url)
+            })
+        }
     }
 
     private fun showUpdateDialog(apkUrl: String, desc: String, code: Int) {

@@ -1,9 +1,12 @@
 package com.milike.soft.utils
 
+import android.net.Uri
 import com.blankj.utilcode.util.DeviceUtils
 import com.blankj.utilcode.util.SPUtils
 
 fun getWebUrlSuffix(url: String): String {
+    val uri = Uri.parse(url)
+//    uri.
     val position = SPUtils.getInstance().getString("position")
     return url + (if (url.contains("?")) "&" else "?") + "flag=milike" + position + getUIDAndBasicInfo()
 }

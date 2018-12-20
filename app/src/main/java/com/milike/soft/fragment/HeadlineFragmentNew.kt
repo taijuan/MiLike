@@ -12,7 +12,6 @@ import com.milike.soft.base.BaseFragment
 import com.milike.soft.base.DNS
 import com.milike.soft.utils.MiLikeJavascriptInterface
 import com.milike.soft.utils.MiLikeWebViewClient
-import com.milike.soft.utils.getWebUrlSuffix
 import com.milike.soft.utils.initWebViewSetting
 import kotlinx.android.synthetic.main.layout_web_view.*
 
@@ -52,9 +51,16 @@ class HeadlineFragmentNew : BaseFragment() {
             swipeRefreshLayout.isRefreshing = false
         }
     }
+    override fun onDestroy() {
+        webView?.also {
+            it.removeAllViews()
+            it.destroy()
+        }
+        super.onDestroy()
+    }
 
     override fun loadUrl() {
         val cityCode = SPUtils.getInstance().getString("cityCode", "sz")
-        webView.loadUrl(getWebUrlSuffix("${DNS.server}$cityCode/infmt/"))
+        webView.loadUrl("${DNS.server}$cityCode/infmt/")
     }
 }

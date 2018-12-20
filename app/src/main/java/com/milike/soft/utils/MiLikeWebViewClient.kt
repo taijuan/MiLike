@@ -132,7 +132,7 @@ abstract class MiLikeWebViewClient(private val isLogon: Boolean = false) : WebVi
             ).apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) })
         } else {
             (view.context as Activity).startActivity(Intent(view.context, WebActivity::class.java).apply {
-                putExtra("url", getWebUrlSuffix(url))
+                putExtra("url", url)
             })
         }
     }
