@@ -33,6 +33,9 @@ class WebActivity : BaseActivity() {
             }
         }
         webView.addJavascriptInterface(MiLikeJavascriptInterface(webView), "android")
+        webView.setOnScrollTop {
+            swipeRefreshLayout.isEnabled = it == 0
+        }
         loadUrl(intent.getStringExtra("url"))
         swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#FADB28"), Color.parseColor("#FFDA00"))
         swipeRefreshLayout.setOnRefreshListener {

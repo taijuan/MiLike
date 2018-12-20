@@ -42,6 +42,9 @@ class HeadlineFragmentNew : BaseFragment() {
             }
         }
         webView.addJavascriptInterface(MiLikeJavascriptInterface(webView), "android")
+        webView.setOnScrollTop {
+            swipeRefreshLayout.isEnabled = it == 0
+        }
         loadUrl()
         swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#FADB28"), Color.parseColor("#FFDA00"))
         swipeRefreshLayout.setOnRefreshListener {

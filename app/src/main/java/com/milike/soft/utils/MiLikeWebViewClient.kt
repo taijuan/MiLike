@@ -132,7 +132,6 @@ abstract class MiLikeWebViewClient(private val isLogon: Boolean = false) : WebVi
                 putExtra("url", getWebUrlSuffix(url))
             })
         }
-
     }
 
 }

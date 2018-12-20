@@ -8,6 +8,7 @@ import android.view.Gravity
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import cn.jpush.android.api.JPushInterface
 import com.azhon.appupdate.config.UpdateConfiguration
 import com.azhon.appupdate.manager.DownloadManager
 import com.azhon.appupdate.utils.Constant
@@ -44,6 +45,7 @@ class HomeActivity : BaseActivity() {
                         val positionInfo =
                             "&location=" + latitude.toString() + "," + longitude.toString() + "&city=" + it.city
                         SPUtils.getInstance().put("position", positionInfo)
+                        locationClient.unRegisterLocationListener(locationListener)
                     }
                 }
             }
@@ -72,6 +74,7 @@ class HomeActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        Log.e("zuiweng", JPushInterface.getRegistrationID(this) + "   11")
         SPUtils.getInstance().put("versionCode", BuildConfig.VERSION_CODE)
         viewPager.adapter = object : androidx.fragment.app.FragmentPagerAdapter(supportFragmentManager) {
             override fun getItem(position: Int) = when (position) {
@@ -109,7 +112,7 @@ class HomeActivity : BaseActivity() {
                     .setDialogButtonTextColor(Color.WHITE)
                     .setBreakpointDownload(true)
                     .setShowNotification(true)
-                    .setForcedUpgrade(true)
+                    .setForcedUpgrade(false)
             )
             .download()
     }

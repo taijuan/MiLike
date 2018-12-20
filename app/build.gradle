@@ -42,12 +42,19 @@ android {
         applicationId "com.milike.soft"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 127
-        versionName "1.2.7"
+        versionCode 129
+        versionName "1.2.9"
         ndk {
             abiFilters 'arm64-v8a', 'armeabi-v7a'
         }
         resConfigs 'zh'
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "73d0ebcfa282b22e2fe9b455",
+                JPUSH_CHANNEL: "MiLike",
+        ]
+        buildConfigField "String", "UMENG_APPKEY", '"57bab72ce0f55ae7b000108c"'
+        buildConfigField "String", "UMENG_CHANNEL", '"MiLike"'
     }
 
     signingConfigs {
@@ -105,4 +112,8 @@ dependencies {
     implementation 'com.gyf.immersionbar:immersionbar:2.3.3-beta04'
     implementation 'com.blankj:utilcode:1.22.1'
     implementation 'com.azhon:appupdate:2.0.0'
+    implementation 'cn.jiguang.sdk:jpush:3.1.6'
+    implementation 'cn.jiguang.sdk:jcore:1.2.5'
+    implementation 'com.umeng.sdk:common:1.5.3'
+    implementation 'com.umeng.sdk:analytics:7.5.3'
 }

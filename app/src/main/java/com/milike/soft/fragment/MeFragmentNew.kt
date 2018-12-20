@@ -41,7 +41,8 @@ class MeFragmentNew : BaseFragment() {
                     "/queryuserinfo",
                     "/set.htm",
                     "/link",
-                    "js://jstojava?cityCode="
+                    "js://jstojava?cityCode=",
+                    "/join.htm"
                 ).any { s -> url.contains(s) }
             }
         }
