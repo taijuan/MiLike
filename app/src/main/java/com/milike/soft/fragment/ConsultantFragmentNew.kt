@@ -12,6 +12,7 @@ import com.milike.soft.base.BaseFragment
 import com.milike.soft.base.DNS
 import com.milike.soft.utils.MiLikeJavascriptInterface
 import com.milike.soft.utils.MiLikeWebViewClient
+import com.milike.soft.utils.getWebUrlSuffix
 import com.milike.soft.utils.initWebViewSetting
 import kotlinx.android.synthetic.main.layout_web_view.*
 
@@ -55,7 +56,7 @@ class ConsultantFragmentNew : BaseFragment() {
 
     override fun loadUrl() {
         val cityCode = SPUtils.getInstance().getString("cityCode", "sz")
-        webView.loadUrl("${DNS.server}$cityCode/adviser")
+        webView.loadUrl(getWebUrlSuffix("${DNS.server}$cityCode/adviser"))
     }
 
     override fun onDestroy() {

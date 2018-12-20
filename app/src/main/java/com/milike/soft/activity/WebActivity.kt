@@ -2,13 +2,13 @@ package com.milike.soft.activity
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.webkit.WebView
 import com.milike.soft.R
 import com.milike.soft.base.BaseActivity
 import com.milike.soft.utils.MiLikeJavascriptInterface
 import com.milike.soft.utils.MiLikeWebViewClient
+import com.milike.soft.utils.getWebUrlSuffix
 import com.milike.soft.utils.initWebViewSetting
 import kotlinx.android.synthetic.main.layout_web_view.*
 
@@ -48,8 +48,7 @@ class WebActivity : BaseActivity() {
     }
 
     override fun loadUrl() {
-        webView.reload()
-        Log.e("zuiweng", "refresh")
+        webView.loadUrl(getWebUrlSuffix(webView.url))
     }
 
     override fun onDestroy() {
