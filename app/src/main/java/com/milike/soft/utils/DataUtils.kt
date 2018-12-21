@@ -5,8 +5,13 @@ import com.blankj.utilcode.util.DeviceUtils
 import com.blankj.utilcode.util.SPUtils
 
 fun getWebUrlSuffix(url: String): String {
-    val uri = Uri.parse(url)
-//    uri.
+//    val uri = Uri.parse(url)
+//    Uri.Builder()
+//        .scheme(uri.scheme)
+//        .authority(uri.authority)
+//        .path(uri.path)
+//        .query(uri.query)
+//        .q
     val position = SPUtils.getInstance().getString("position")
     return url + (if (url.contains("?")) "&" else "?") + "flag=milike" + position + getUIDAndBasicInfo()
 }

@@ -70,7 +70,6 @@ class HomeActivity : BaseActivity() {
             option.setWifiCacheTimeOut(5 * 60 * 1000)
             option.setEnableSimulateGps(false)
             locOption = option
-            start()
         }
     }
     private var exitTime: Long = 0
@@ -97,9 +96,8 @@ class HomeActivity : BaseActivity() {
         tabItem(R.string.page3, R.drawable.advisor_selected, R.drawable.advisor)
         tabItem(R.string.page4, R.drawable.me_selected, R.drawable.me)
         getAppVersion()
-
         filterActionToIntent()
-
+        locationClient.start()
     }
 
     private fun filterActionToIntent() {
@@ -111,12 +109,12 @@ class HomeActivity : BaseActivity() {
         }
     }
 
-    private fun showUpdateDialog(apkUrl: String, desc: String, code: Int) {
+    private fun showUpdateDialog(apkUrl: String, desc: String, code: Int, isForceUpdate: Boolean) {
         DownloadManager.getInstance(this)
             .setApkName("MiLike.apk")
             .setApkUrl(apkUrl)
             .setSmallIcon(R.mipmap.ic_launcher)
-            .setShowNewerToast(true)
+            .setShowNewerToast(false)
             .setApkVersionCode(code)
             .setAuthorities(BuildConfig.APPLICATION_ID)
             .setApkDescription(desc)
@@ -127,7 +125,7 @@ class HomeActivity : BaseActivity() {
                     .setDialogButtonTextColor(Color.WHITE)
                     .setBreakpointDownload(true)
                     .setShowNotification(true)
-                    .setForcedUpgrade(false)
+                    .setForcedUpgrade(isForceUpdate)
             )
             .download()
     }
@@ -176,8 +174,9 @@ class HomeActivity : BaseActivity() {
                     val installUrl = json.getString("apkUrl")
                     val versionCode = json.getInt("versionName")
                     val desc = json.getString("updateDesc")
+                    val isForceUpdate = json.getBoolean("isCompelUpdate")
                     runOnUiThread {
-                        showUpdateDialog(installUrl, desc, versionCode)
+                        showUpdateDialog(installUrl, desc, versionCode, isForceUpdate)
                     }
                 }
                 con.disconnect()
