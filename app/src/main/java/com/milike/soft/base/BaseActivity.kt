@@ -10,7 +10,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.blankj.utilcode.util.Utils
 import com.gyf.barlibrary.ImmersionBar
 import com.milike.soft.BuildConfig
-import com.milike.soft.R
 import com.umeng.analytics.MobclickAgent
 
 abstract class BaseActivity : AppCompatActivity() {
@@ -25,7 +24,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ImmersionBar.with(this).barColor(R.color.white).statusBarDarkFont(true).init()
+        ImmersionBar.with(this).barColor(android.R.color.transparent).statusBarDarkFont(true).init()
         LocalBroadcastManager.getInstance(Utils.getApp()).registerReceiver(broadcastReceiver, IntentFilter().apply {
             addAction("${BuildConfig.APPLICATION_ID}.refresh")
         })
@@ -42,9 +41,9 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         ImmersionBar.with(this).destroy()
         LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver)
+        super.onDestroy()
     }
 
     open fun loadUrl() {}

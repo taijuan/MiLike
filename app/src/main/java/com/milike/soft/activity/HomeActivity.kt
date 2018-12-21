@@ -113,7 +113,7 @@ class HomeActivity : BaseActivity() {
         DownloadManager.getInstance(this)
             .setApkName("MiLike.apk")
             .setApkUrl(apkUrl)
-            .setSmallIcon(R.mipmap.ic_launcher)
+            .setSmallIcon(R.drawable.ic_launcher)
             .setShowNewerToast(false)
             .setApkVersionCode(code)
             .setAuthorities(BuildConfig.APPLICATION_ID)

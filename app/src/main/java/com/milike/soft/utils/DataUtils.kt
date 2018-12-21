@@ -1,6 +1,5 @@
 package com.milike.soft.utils
 
-import android.net.Uri
 import com.blankj.utilcode.util.DeviceUtils
 import com.blankj.utilcode.util.SPUtils
 
