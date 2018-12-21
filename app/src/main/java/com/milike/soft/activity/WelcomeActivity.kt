@@ -17,7 +17,12 @@ class WelcomeActivity : BaseActivity() {
         val uuid = JPushInterface.getRegistrationID(this)
         Log.e("zuiweng", uuid)
         SPUtils.getInstance().put("uuid", uuid)
-        PermissionUtils.permission(PermissionConstants.PHONE, PermissionConstants.LOCATION).callback(object :
+        PermissionUtils.permission(
+            PermissionConstants.PHONE,
+            PermissionConstants.LOCATION,
+            PermissionConstants.STORAGE,
+            PermissionConstants.SMS
+        ).callback(object :
             PermissionUtils.SimpleCallback {
             override fun onGranted() {
                 goHomeOrGuide()
