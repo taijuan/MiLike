@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.drawable.StateListDrawable
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.util.Patterns
 import android.view.Gravity
 import android.widget.TextView
@@ -14,10 +13,6 @@ import androidx.core.content.ContextCompat
 import com.azhon.appupdate.config.UpdateConfiguration
 import com.azhon.appupdate.manager.DownloadManager
 import com.azhon.appupdate.utils.Constant
-import com.baidu.location.BDAbstractLocationListener
-import com.baidu.location.BDLocation
-import com.baidu.location.LocationClient
-import com.baidu.location.LocationClientOption
 import com.blankj.utilcode.util.SPUtils
 import com.milike.soft.BuildConfig
 import com.milike.soft.R
@@ -36,42 +31,6 @@ import java.util.concurrent.Executors
 
 class HomeActivity : BaseActivity() {
 
-    private val locationListener: BDAbstractLocationListener by lazy {
-        object : BDAbstractLocationListener() {
-            override fun onReceiveLocation(it: BDLocation?) {
-                it?.let {
-                    val latitude = it.latitude
-                    val longitude = it.longitude
-                    Log.e("zuiweng", "经度=" + latitude.toString() + " 纬度=" + longitude.toString())
-                    val city = it.city
-                    Log.e("zuiweng", "城市=$city")
-                    if (it.locType == BDLocation.TypeGpsLocation || it.locType == BDLocation.TypeNetWorkLocation) {
-                        val positionInfo =
-                            "&location=" + latitude.toString() + "," + longitude.toString() + "&city=" + it.city
-                        SPUtils.getInstance().put("position", positionInfo)
-                        locationClient.unRegisterLocationListener(locationListener)
-                    }
-                }
-            }
-        }
-    }
-    private val locationClient: LocationClient by lazy {
-        LocationClient(this).apply {
-            registerLocationListener(locationListener)
-            val option = LocationClientOption()
-            option.setIsNeedAddress(true)
-            option.locationMode = LocationClientOption.LocationMode.Hight_Accuracy
-            option.setCoorType("bd09ll")
-            option.setScanSpan(1000)
-            option.isOpenGps = true
-            option.isLocationNotify = true
-            option.setIgnoreKillProcess(false)
-            option.SetIgnoreCacheException(false)
-            option.setWifiCacheTimeOut(5 * 60 * 1000)
-            option.setEnableSimulateGps(false)
-            locOption = option
-        }
-    }
     private var exitTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,7 +56,6 @@ class HomeActivity : BaseActivity() {
         tabItem(R.string.page4, R.drawable.me_selected, R.drawable.me)
         getAppVersion()
         filterActionToIntent()
-        locationClient.start()
     }
 
     private fun filterActionToIntent() {
@@ -156,7 +114,6 @@ class HomeActivity : BaseActivity() {
     }
 
     override fun onDestroy() {
-        locationClient.unRegisterLocationListener(locationListener)
         super.onDestroy()
     }
 

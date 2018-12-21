@@ -108,7 +108,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'com.google.android.material:material:1.1.0-alpha02'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.1'
-    implementation files('libs/BaiduLBS_Android.jar')
     implementation 'com.gyf.immersionbar:immersionbar:2.3.3-beta04'
     implementation 'com.blankj:utilcode:1.22.1'
     implementation 'com.azhon:appupdate:2.0.0'
