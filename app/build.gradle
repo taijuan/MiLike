@@ -39,18 +39,18 @@ MobSDK {
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.milike.soft"
+        applicationId "com.milike"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 131
-        versionName "1.3.1"
+        versionCode 132
+        versionName "1.3.2"
         ndk {
             abiFilters 'arm64-v8a', 'armeabi-v7a'
         }
         resConfigs 'zh'
         manifestPlaceholders = [
                 JPUSH_PKGNAME: applicationId,
-                JPUSH_APPKEY : "73d0ebcfa282b22e2fe9b455",
+                JPUSH_APPKEY : "89ae4b688c1e49ab381f3d5a",
                 JPUSH_CHANNEL: "MiLike",
         ]
         buildConfigField "String", "UMENG_APPKEY", '"57bab72ce0f55ae7b000108c"'
