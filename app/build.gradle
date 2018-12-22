@@ -56,7 +56,41 @@ android {
         buildConfigField "String", "UMENG_APPKEY", '"57bab72ce0f55ae7b000108c"'
         buildConfigField "String", "UMENG_CHANNEL", '"MiLike"'
     }
-
+    //密钥库类型: JKS
+    //密钥库提供方: SUN
+    //
+    //您的密钥库包含 1 个条目
+    //
+    //别名: milike
+    //创建日期: 2018-7-20
+    //条目类型: PrivateKeyEntry
+    //证书链长度: 1
+    //证书[1]:
+    //所有者: CN=milike, OU=milike, O=milike, L=sz, ST=sz, C=cn
+    //发布者: CN=milike, OU=milike, O=milike, L=sz, ST=sz, C=cn
+    //序列号: 617cefd2
+    //有效期开始日期: Fri Jul 20 10:05:29 CST 2018, 截止日期: Tue Jul 14 10:05:29 CST 2043
+    //证书指纹:
+    //         MD5: 93:8D:34:E5:12:62:78:BA:AA:53:80:CA:FE:CC:69:76
+    //         SHA1: BD:DB:21:84:13:F1:AC:40:B0:E1:D5:D5:AF:20:F3:81:2F:27:51:DB
+    //         SHA256: AF:C8:19:82:7A:93:31:00:6B:BF:2A:CC:63:AD:2D:5E:A2:F6:F0:DF:29:75:4E:48:1F:6A:1F:CA:B6:FC:C5:3B
+    //         签名算法名称: SHA256withRSA
+    //         版本: 3
+    //
+    //扩展:
+    //
+    //#1: ObjectId: 2.5.29.14 Criticality=false
+    //SubjectKeyIdentifier [
+    //KeyIdentifier [
+    //0000: 2D 90 D9 77 20 1A FD 11   CC 3C E4 69 98 C6 C6 89  -..w ....<.i....
+    //0010: DE BC 0B 8C                                        ....
+    //]
+    //]
+    //
+    //
+    //
+    //*******************************************
+    //*******************************************
     signingConfigs {
         debug {
             storeFile file("milike.jks")
