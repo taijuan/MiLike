@@ -31,22 +31,6 @@ abstract class MiLikeWebViewClient(private val isLogon: Boolean = false) : WebVi
         }
     }
 
-    override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
-        val url = request?.url.toString()
-        Log.e("zuiwengxxxxxxx", url)
-        return if (view != null && !url.isEmpty()) {
-            when {
-                interceptDefUrlLoading(url) || interceptUrlLoading(view, url) -> {
-                    filterAction(url, view)
-                    true
-                }
-                else -> super.shouldOverrideUrlLoading(view, request)
-            }
-        } else {
-            super.shouldOverrideUrlLoading(view, request)
-        }
-    }
-
     override fun onPageFinished(view: WebView?, url: String?) {
         Log.e("zuiwengxxxxxxx Finish", url.toString())
         if (view != null && !url.isNullOrEmpty()) {
@@ -55,13 +39,15 @@ abstract class MiLikeWebViewClient(private val isLogon: Boolean = false) : WebVi
     }
 
     override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
-        super.onReceivedError(view, request, error)
         Log.e("zuiwengxxxxxxx Error", request?.url.toString())
-        if (request?.isForMainFrame == true) {
-            if (NetworkUtils.isConnected()) {
-                view?.loadUrl("file:///android_asset/404.html")
-            } else {
-                view?.loadUrl("file:///android_asset/network_error.html")
+        if (view != null && request != null) {
+            val url = request?.url.toString()
+            if (!interceptDefUrlLoading(url) && !interceptUrlLoading(view, url) && request.isForMainFrame) {
+                if (NetworkUtils.isConnected()) {
+                    view?.loadUrl("file:///android_asset/404.html")
+                } else {
+                    view?.loadUrl("file:///android_asset/network_error.html")
+                }
             }
         }
     }
