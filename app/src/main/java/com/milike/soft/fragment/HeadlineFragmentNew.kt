@@ -53,16 +53,26 @@ class HeadlineFragmentNew : BaseFragment() {
         }
     }
 
+    override fun loadUrl() {
+        val cityCode = SPUtils.getInstance().getString("cityCode", "sz")
+        webView.loadUrl(getWebUrlSuffix("${DNS.server}$cityCode/infmt/"))
+    }
+
+    override fun onResume() {
+        webView.onResume()
+        super.onResume()
+    }
+
+    override fun onPause() {
+        webView.onPause()
+        super.onPause()
+    }
+
     override fun onDestroy() {
         webView?.also {
             it.removeAllViews()
             it.destroy()
         }
         super.onDestroy()
-    }
-
-    override fun loadUrl() {
-        val cityCode = SPUtils.getInstance().getString("cityCode", "sz")
-        webView.loadUrl(getWebUrlSuffix("${DNS.server}$cityCode/infmt/"))
     }
 }

@@ -18,18 +18,42 @@ import com.milike.soft.activity.WebActivity
 
 abstract class MiLikeWebViewClient(private val isLogon: Boolean = false) : WebViewClient() {
 
+    override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
+        val url = request?.url.toString()
+        Log.e("zuiwengxxxxxxx", url)
+        return if (view != null && !url.isEmpty()) {
+            when {
+                interceptDefUrlLoading(url) || interceptUrlLoading(view, url) -> {
+                    filterAction(url, view)
+                    true
+                }
+                else -> super.shouldOverrideUrlLoading(view, request)
+            }
+        } else {
+            super.shouldOverrideUrlLoading(view, request)
+        }
+    }
+
+    override fun onPageCommitVisible(view: WebView?, url: String?) {
+        Log.e("zuiwengonPa", url.toString())
+        super.onPageCommitVisible(view, url)
+    }
+
     override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
         Log.e("zuiwengxxxxxxx", url)
         if (view != null && !url.isNullOrEmpty()) {
             when {
                 interceptDefUrlLoading(url) || interceptUrlLoading(view, url) -> {
+                    view.pauseTimers()
                     view.stopLoading()
+                    view.resumeTimers()
                     filterAction(url, view)
                 }
                 else -> onStart(view, url)
             }
         }
     }
+
 
     override fun onPageFinished(view: WebView?, url: String?) {
         Log.e("zuiwengxxxxxxx Finish", url.toString())

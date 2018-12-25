@@ -59,6 +59,14 @@ class ConsultantFragmentNew : BaseFragment() {
         webView.loadUrl(getWebUrlSuffix("${DNS.server}$cityCode/adviser"))
     }
 
+    override fun onResume() {
+        webView.onResume()
+        super.onResume()
+    }
+    override fun onPause() {
+        webView.onPause()
+        super.onPause()
+    }
     override fun onDestroy() {
         webView?.also {
             it.removeAllViews()

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebChromeClient
 import android.webkit.WebView
 import com.blankj.utilcode.util.SPUtils
 import com.milike.soft.R
@@ -51,6 +52,7 @@ class HomeFragmentNew : BaseFragment() {
                 ).any { s -> url.contains(s) }
             }
         }
+
         webView.addJavascriptInterface(MiLikeJavascriptInterface(webView), "android")
         webView.setOnScrollTop {
             swipeRefreshLayout.isEnabled = it == 0
@@ -66,6 +68,16 @@ class HomeFragmentNew : BaseFragment() {
     override fun loadUrl() {
         val cityCode = SPUtils.getInstance().getString("cityCode", "sz")
         webView.loadUrl(getWebUrlSuffix("${DNS.server}$cityCode/"))
+    }
+
+    override fun onResume() {
+        webView.onResume()
+        super.onResume()
+    }
+
+    override fun onPause() {
+        webView.onPause()
+        super.onPause()
     }
 
     override fun onDestroy() {
