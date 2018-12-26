@@ -63,12 +63,15 @@ class ConsultantFragmentNew : BaseFragment() {
         webView.onResume()
         super.onResume()
     }
+
     override fun onPause() {
         webView.onPause()
         super.onPause()
     }
+
     override fun onDestroy() {
         webView?.also {
+            webViewContent?.removeView(it)
             it.removeAllViews()
             it.destroy()
         }

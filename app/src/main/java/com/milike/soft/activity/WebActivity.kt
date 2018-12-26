@@ -63,6 +63,7 @@ class WebActivity : BaseActivity() {
 
     override fun onDestroy() {
         webView?.also {
+            webViewContent?.removeView(it)
             it.removeAllViews()
             it.destroy()
         }

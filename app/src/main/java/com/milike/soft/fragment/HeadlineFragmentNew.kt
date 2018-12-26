@@ -70,6 +70,7 @@ class HeadlineFragmentNew : BaseFragment() {
 
     override fun onDestroy() {
         webView?.also {
+            webViewContent?.removeView(it)
             it.removeAllViews()
             it.destroy()
         }
