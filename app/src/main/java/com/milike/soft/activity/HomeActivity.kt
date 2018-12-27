@@ -18,10 +18,10 @@ import com.milike.soft.BuildConfig
 import com.milike.soft.R
 import com.milike.soft.base.BaseActivity
 import com.milike.soft.base.DNS
-import com.milike.soft.fragment.ConsultantFragmentNew
-import com.milike.soft.fragment.HeadlineFragmentNew
-import com.milike.soft.fragment.HomeFragmentNew
-import com.milike.soft.fragment.MeFragmentNew
+import com.milike.soft.fragment.ConsultantFragment
+import com.milike.soft.fragment.HeadlineFragment
+import com.milike.soft.fragment.HomeFragment
+import com.milike.soft.fragment.MeFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import org.json.JSONObject
 import java.net.HttpURLConnection
@@ -39,10 +39,10 @@ class HomeActivity : BaseActivity() {
         SPUtils.getInstance().put("versionCode", BuildConfig.VERSION_CODE)
         viewPager.adapter = object : androidx.fragment.app.FragmentPagerAdapter(supportFragmentManager) {
             override fun getItem(position: Int) = when (position) {
-                0 -> HomeFragmentNew()
-                1 -> HeadlineFragmentNew()
-                2 -> ConsultantFragmentNew()
-                else -> MeFragmentNew()
+                0 -> HomeFragment()
+                1 -> HeadlineFragment()
+                2 -> ConsultantFragment()
+                else -> MeFragment()
             }
 
             override fun getCount() = 4

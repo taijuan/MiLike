@@ -6,6 +6,7 @@ import android.annotation.SuppressLint
 import android.view.View
 import android.webkit.WebSettings
 import androidx.viewpager.widget.ViewPager
+import com.milike.soft.BuildConfig
 
 fun View.onClick(interval: Long = 500L, body: () -> Unit) {
     var current = 0L
@@ -45,4 +46,6 @@ fun WebSettings.initWebViewSetting() {
     this.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
     this.blockNetworkImage = false
     this.javaScriptEnabled = true
+    this.userAgentString = "$userAgentString ${BuildConfig.APPLICATION_ID}"
+    this.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
 }

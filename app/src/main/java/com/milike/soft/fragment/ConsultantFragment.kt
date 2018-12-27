@@ -1,6 +1,5 @@
 package com.milike.soft.fragment
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,15 +16,15 @@ import com.milike.soft.utils.getWebUrlSuffix
 import com.milike.soft.utils.initWebViewSetting
 import kotlinx.android.synthetic.main.layout_web_view.*
 
-class MeFragmentNew : BaseFragment() {
+class ConsultantFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.layout_web_view, container, false)
 
-    @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         webView.settings.initWebViewSetting()
         webView.webViewClient = object : MiLikeWebViewClient() {
+
             override fun onStart(view: WebView, url: String) {
                 loading.visibility = View.VISIBLE
             }
@@ -36,17 +35,17 @@ class MeFragmentNew : BaseFragment() {
 
             override fun interceptUrlLoading(view: WebView, url: String): Boolean {
                 return arrayListOf(
-                    "/mysub.htm",
-                    "/myNeed/1",
-                    "/queryuserinfo",
-                    "/set.htm",
-                    "/link",
-                    "js://jstojava?cityCode=",
-                    "/join.htm"
+                    "/infmt/zx/",
+                    "/infmt/dt/",
+                    "/estate/detail/index/",
+                    "js://jstojava?cityCode="
                 ).any { s -> url.contains(s) }
             }
         }
         webView.addJavascriptInterface(MiLikeJavascriptInterface(webView), "android")
+        webView.setOnScrollTop {
+            swipeRefreshLayout.isEnabled = it == 0
+        }
         loadUrl()
         swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#FADB28"), Color.parseColor("#FFDA00"))
         swipeRefreshLayout.setOnRefreshListener {
@@ -55,10 +54,9 @@ class MeFragmentNew : BaseFragment() {
         }
     }
 
-
     override fun loadUrl() {
         val cityCode = SPUtils.getInstance().getString("cityCode", "sz")
-        webView.loadUrl(getWebUrlSuffix("${DNS.server}$cityCode/user"))
+        webView.loadUrl(getWebUrlSuffix("${DNS.server}$cityCode/adviser"))
     }
 
     override fun onResume() {

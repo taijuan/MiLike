@@ -16,7 +16,7 @@ import com.milike.soft.utils.getWebUrlSuffix
 import com.milike.soft.utils.initWebViewSetting
 import kotlinx.android.synthetic.main.layout_web_view.*
 
-class ConsultantFragmentNew : BaseFragment() {
+class HomeFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.layout_web_view, container, false)
 
@@ -24,7 +24,6 @@ class ConsultantFragmentNew : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         webView.settings.initWebViewSetting()
         webView.webViewClient = object : MiLikeWebViewClient() {
-
             override fun onStart(view: WebView, url: String) {
                 loading.visibility = View.VISIBLE
             }
@@ -35,13 +34,24 @@ class ConsultantFragmentNew : BaseFragment() {
 
             override fun interceptUrlLoading(view: WebView, url: String): Boolean {
                 return arrayListOf(
-                    "/infmt/zx/",
-                    "/infmt/dt/",
+                    "/link",
+                    "/infmt/index/zx",
+                    "/estate/-pt-0",
+                    "/yfzzf/1",
+                    "/houseList/-pn-1-ps-6.htm",
+                    "/map/",
+                    "/estate/-pt-1",
+                    "/theme/",
+                    "/xprt/",
                     "/estate/detail/index/",
-                    "js://jstojava?cityCode="
+                    "/search",
+                    "/mysub.htm",
+                    "js://jstojava?cityCode=",
+                    "/artifact/"
                 ).any { s -> url.contains(s) }
             }
         }
+
         webView.addJavascriptInterface(MiLikeJavascriptInterface(webView), "android")
         webView.setOnScrollTop {
             swipeRefreshLayout.isEnabled = it == 0
@@ -56,7 +66,7 @@ class ConsultantFragmentNew : BaseFragment() {
 
     override fun loadUrl() {
         val cityCode = SPUtils.getInstance().getString("cityCode", "sz")
-        webView.loadUrl(getWebUrlSuffix("${DNS.server}$cityCode/adviser"))
+        webView.loadUrl(getWebUrlSuffix("${DNS.server}$cityCode/"))
     }
 
     override fun onResume() {

@@ -30,13 +30,13 @@ class MiLikeJavascriptInterface(val webView: WebView) {
         }
     }
 
-    //<button onclick="window.android.nextPage('file:///android_asset/finish.html')">跳转界面</button>
+    //<button onclick="window.android.nextPage('htts://baidu.com')">跳转界面</button>
     //<button onclick="window.android.nextPage('tel:15528363539')">拨打电话</button>
     @JavascriptInterface
     fun nextPage(url: String) {
-        if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("file:///")) {
+        if (url.startsWith("http://") || url.startsWith("https://")) {
             Utils.getApp().startActivity(Intent(Utils.getApp(), WebActivity::class.java).apply {
-                putExtra("url", url)
+                putExtra("url", getWebUrlSuffix(url))
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             })
         } else {

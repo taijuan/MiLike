@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebChromeClient
 import android.webkit.WebView
 import com.blankj.utilcode.util.SPUtils
 import com.milike.soft.R
@@ -17,7 +16,7 @@ import com.milike.soft.utils.getWebUrlSuffix
 import com.milike.soft.utils.initWebViewSetting
 import kotlinx.android.synthetic.main.layout_web_view.*
 
-class HomeFragmentNew : BaseFragment() {
+class HeadlineFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.layout_web_view, container, false)
 
@@ -35,24 +34,13 @@ class HomeFragmentNew : BaseFragment() {
 
             override fun interceptUrlLoading(view: WebView, url: String): Boolean {
                 return arrayListOf(
-                    "/link",
-                    "/infmt/index/zx",
-                    "/estate/-pt-0",
-                    "/yfzzf/1",
-                    "/houseList/-pn-1-ps-6.htm",
-                    "/map/",
-                    "/estate/-pt-1",
-                    "/theme/",
-                    "/xprt/",
+                    "/infmt/zx/",
+                    "/infmt/dt/",
                     "/estate/detail/index/",
-                    "/search",
-                    "/mysub.htm",
-                    "js://jstojava?cityCode=",
-                    "/artifact/"
+                    "js://jstojava?cityCode="
                 ).any { s -> url.contains(s) }
             }
         }
-
         webView.addJavascriptInterface(MiLikeJavascriptInterface(webView), "android")
         webView.setOnScrollTop {
             swipeRefreshLayout.isEnabled = it == 0
@@ -67,7 +55,7 @@ class HomeFragmentNew : BaseFragment() {
 
     override fun loadUrl() {
         val cityCode = SPUtils.getInstance().getString("cityCode", "sz")
-        webView.loadUrl(getWebUrlSuffix("${DNS.server}$cityCode/"))
+        webView.loadUrl(getWebUrlSuffix("${DNS.server}$cityCode/infmt/"))
     }
 
     override fun onResume() {
