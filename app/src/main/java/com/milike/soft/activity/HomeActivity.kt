@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.drawable.StateListDrawable
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Patterns
 import android.view.Gravity
 import android.widget.TextView
 import android.widget.Toast
@@ -60,7 +59,7 @@ class HomeActivity : BaseActivity() {
 
     private fun filterActionToIntent() {
         val url = intent.getStringExtra("url")
-        if (!TextUtils.isEmpty(url) && Patterns.WEB_URL.matcher(url).matches()) {
+        if (!TextUtils.isEmpty(url)) {
             startActivity(Intent(this, WebActivity::class.java).apply {
                 putExtra("url", url)
             })

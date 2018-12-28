@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <style type="text/css">
+	*{margin:0;padding:0;}
+	body{font-size:14px;background:#f6f6f6;padding-top:44px;}
+	.button{display:block;margin:0 15px 20px;line-height:42px;border-radius:21px;background:#FBCA32;background:linear-gradient(90deg,#FBCA32 0,#FAD961 100%);color:#fff;font-size:16px;box-shadow:0 5px 5px rgba(255,216,0,0.3);}
+	</style>
+</head>
+<body>
+    <br>
+    <br>
+    <div onclick="window.android.goBack()" class="button">goBack 返回上一个url或者结束界面</div>
+    <br>
+    <br>
+    <div onclick="window.android.finish()" class="button">直接结束界面</div>
+    <br>
+    <br>
+    <div onclick="window.android.nextPage('https://baidu.com')" class="button">跳转新界面,展示百度</div>
+    <br>
+    <br>
+    <div onclick="window.android.nextPage('tel:15528363539')" class="button">调用拨打电话</div>
+    <br>
+    <br>
+    <div onclick="window.android.login('success')" class="button">登录成功，返回上一个界面并刷新</div>
+    <br>
+    <br>
+    <div onclick="window.android.logout()" class="button">退出登录，返回上一个界面并刷新</div>
+    <br>
+    <br>
+    <div onclick="window.android.cityCode('sh')" class="button">城市切换</div>
+</body>
+</html>

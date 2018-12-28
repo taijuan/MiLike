@@ -35,7 +35,7 @@ class WebActivity : BaseActivity() {
         }
         webView.addJavascriptInterface(MiLikeJavascriptInterface(webView), "android")
         swipeRefreshLayout.isEnabled = false
-        loadUrl(intent.getStringExtra("url"))
+        loadUrl(intent.getStringExtra("url") ?: "")
         swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#FADB28"), Color.parseColor("#FFDA00"))
         swipeRefreshLayout.setOnRefreshListener {
             webView.reload()
@@ -43,8 +43,12 @@ class WebActivity : BaseActivity() {
         }
     }
 
-    private fun loadUrl(data: String) {
-        webView.loadUrl(data)
+    private fun loadUrl(url: String) {
+        if (url.startsWith("http") || url.startsWith("https") || url.startsWith("file:///android_asset/")) {
+            webView.loadUrl(url)
+        } else {
+            webView.loadData(url, "text/html", "UTF-8")
+        }
     }
 
     override fun loadUrl() {

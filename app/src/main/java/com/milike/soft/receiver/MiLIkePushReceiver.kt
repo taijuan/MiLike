@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.text.TextUtils
-import android.util.Patterns
 import cn.jpush.android.api.JPushInterface
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.IntentUtils
@@ -23,7 +22,7 @@ class MiLIkePushReceiver : BroadcastReceiver() {
                         try {
                             val json = JSONObject(intent.getStringExtra(JPushInterface.EXTRA_EXTRA))
                             val url = json.getString("url")
-                            if (!TextUtils.isEmpty(url) && Patterns.WEB_URL.matcher(url).matches()) {
+                            if (!TextUtils.isEmpty(url)) {
                                 filterActionToIntent(url)
                             }
                         } catch (e: Exception) {

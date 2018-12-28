@@ -7,7 +7,6 @@ import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.blankj.utilcode.util.SPUtils
-import com.blankj.utilcode.util.ToastUtils
 import com.blankj.utilcode.util.Utils
 import com.milike.soft.BuildConfig
 import com.milike.soft.activity.WebActivity
@@ -49,13 +48,14 @@ class MiLikeJavascriptInterface(val webView: WebView) {
     //<button onclick="window.android.goBack()">返回上一个url</button>
     @JavascriptInterface
     fun goBack() {
-        ToastUtils.showLong("refresh")
-        if (webView.canGoBack()) {
-            webView.goBack()
-        } else {
-            val activity = webView.context
-            if (activity is Activity) {
-                activity.finish()
+        webView?.post {
+            if (webView.canGoBack()) {
+                webView.goBack()
+            } else {
+                val activity = webView.context
+                if (activity is Activity) {
+                    activity.finish()
+                }
             }
         }
     }
@@ -63,7 +63,6 @@ class MiLikeJavascriptInterface(val webView: WebView) {
     //<button onclick="window.android.finish()">关闭H5容器</button>
     @JavascriptInterface
     fun finish() {
-        ToastUtils.showLong("finish")
         val activity = webView.context
         if (activity is Activity) {
             activity.finish()
@@ -111,6 +110,15 @@ class MiLikeJavascriptInterface(val webView: WebView) {
         LocalBroadcastManager.getInstance(Utils.getApp()).sendBroadcast(Intent().apply {
             action = "${BuildConfig.APPLICATION_ID}.refresh"
         })
-
+    }
+    //<button onclick="window.android.cityCode('sh')">退出登录</button>
+    @JavascriptInterface
+    fun cityCode(cityCode: String) {
+        if (!cityCode.isEmpty()) {
+            SPUtils.getInstance().put("cityCode", cityCode)
+            LocalBroadcastManager.getInstance(Utils.getApp()).sendBroadcast(Intent().apply {
+                action = "${BuildConfig.APPLICATION_ID}.refresh"
+            })
+        }
     }
 }
