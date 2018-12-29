@@ -111,6 +111,7 @@ class MiLikeJavascriptInterface(val webView: WebView) {
             action = "${BuildConfig.APPLICATION_ID}.refresh"
         })
     }
+
     //<button onclick="window.android.cityCode('sh')">退出登录</button>
     @JavascriptInterface
     fun cityCode(cityCode: String) {
@@ -120,5 +121,10 @@ class MiLikeJavascriptInterface(val webView: WebView) {
                 action = "${BuildConfig.APPLICATION_ID}.refresh"
             })
         }
+    }
+
+    @JavascriptInterface
+    fun getToken(): String {
+        return SPUtils.getInstance().getString("token")
     }
 }
