@@ -112,10 +112,6 @@ class HomeActivity : BaseActivity() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
     private fun getAppVersion() {
         Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors()).submit {
             try {
