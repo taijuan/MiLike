@@ -25,12 +25,16 @@ import kotlinx.android.synthetic.main.activity_home.*
 import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 
 class HomeActivity : BaseActivity() {
 
     private var exitTime: Long = 0
+    private val singleExecutorService: ExecutorService by lazy {
+        Executors.newSingleThreadExecutor()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,7 +117,7 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun getAppVersion() {
-        Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors()).submit {
+        singleExecutorService.submit {
             try {
                 val url = URL("${DNS.server}getAppUpdate")
                 val con = url.openConnection() as HttpURLConnection
@@ -136,6 +140,12 @@ class HomeActivity : BaseActivity() {
                 e.printStackTrace()
             }
         }
+    }
 
+    override fun onDestroy() {
+        if (singleExecutorService.isShutdown) {
+            singleExecutorService.shutdownNow()
+        }
+        super.onDestroy()
     }
 }

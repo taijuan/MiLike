@@ -26,11 +26,11 @@ class ConsultantFragment : BaseFragment() {
         webView.webViewClient = object : MiLikeWebViewClient() {
 
             override fun onStart(view: WebView, url: String) {
-                loading.visibility = View.VISIBLE
+                loading?.visibility = View.VISIBLE
             }
 
             override fun onEnd(view: WebView, url: String) {
-                loading.visibility = View.GONE
+                loading?.visibility = View.GONE
             }
 
             override fun interceptUrlLoading(view: WebView, url: String): Boolean {
