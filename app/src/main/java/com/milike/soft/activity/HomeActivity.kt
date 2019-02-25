@@ -14,9 +14,9 @@ import com.azhon.appupdate.manager.DownloadManager
 import com.azhon.appupdate.utils.Constant
 import com.blankj.utilcode.util.SPUtils
 import com.milike.soft.BuildConfig
+import com.milike.soft.BuildConfig.DNS
 import com.milike.soft.R
 import com.milike.soft.base.BaseActivity
-import com.milike.soft.base.DNS
 import com.milike.soft.fragment.ConsultantFragment
 import com.milike.soft.fragment.HeadlineFragment
 import com.milike.soft.fragment.HomeFragment
@@ -119,7 +119,7 @@ class HomeActivity : BaseActivity() {
     private fun getAppVersion() {
         singleExecutorService.submit {
             try {
-                val url = URL("${DNS.server}getAppUpdate")
+                val url = URL("${DNS}getAppUpdate")
                 val con = url.openConnection() as HttpURLConnection
                 con.requestMethod = "GET"
                 con.readTimeout = Constant.HTTP_TIME_OUT

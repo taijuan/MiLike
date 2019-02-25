@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import com.blankj.utilcode.util.SPUtils
+import com.milike.soft.BuildConfig.DNS
 import com.milike.soft.R
 import com.milike.soft.base.BaseFragment
-import com.milike.soft.base.DNS
 import com.milike.soft.utils.MiLikeJavascriptInterface
 import com.milike.soft.utils.MiLikeWebViewClient
 import com.milike.soft.utils.getWebUrlSuffix
@@ -58,7 +58,7 @@ class MeFragment : BaseFragment() {
 
     override fun loadUrl() {
         val cityCode = SPUtils.getInstance().getString("cityCode", "sz")
-        webView.loadUrl(getWebUrlSuffix("${DNS.server}$cityCode/user"))
+        webView.loadUrl(getWebUrlSuffix("$DNS$cityCode/user"))
     }
 
     override fun onResume() {

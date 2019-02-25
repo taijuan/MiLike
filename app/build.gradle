@@ -49,11 +49,6 @@ android {
             abiFilters 'arm64-v8a', 'armeabi-v7a'
         }
         resConfigs 'zh'
-        manifestPlaceholders = [
-                JPUSH_PKGNAME: applicationId,
-                JPUSH_APPKEY : "89ae4b688c1e49ab381f3d5a",
-                JPUSH_CHANNEL: "MiLike",
-        ]
         buildConfigField "String", "UMENG_APPKEY", '"57bab72ce0f55ae7b000108c"'
         buildConfigField "String", "UMENG_CHANNEL", '"MiLike"'
     }
@@ -112,9 +107,40 @@ android {
     }
     buildTypes {
         debug {
+            applicationIdSuffix ".debug"
+            buildConfigField "String", "DNS", '"http://111.230.129.246:9084/"'
+            resValue "string","app_name","觅房debug"
+            manifestPlaceholders = [
+                    JPUSH_PKGNAME:  "com.milike.debug",
+                    JPUSH_APPKEY : "89ae4b688c1e49ab381f3d5a",
+                    JPUSH_CHANNEL: "MiLike",
+            ]
             signingConfig signingConfigs.release
         }
+
+        alpha {
+            applicationIdSuffix ".alpha"
+            buildConfigField "String", "DNS", '"http://111.230.129.246:9084/"'
+            resValue "string","app_name","觅房alpha"
+            manifestPlaceholders = [
+                    JPUSH_PKGNAME:  "com.milike.alpha",
+                    JPUSH_APPKEY : "89ae4b688c1e49ab381f3d5a",
+                    JPUSH_CHANNEL: "MiLike",
+            ]
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
         release {
+            buildConfigField "String", "DNS", '"http://m.app.milike.com/"'
+            resValue "string","app_name","觅房"
+            manifestPlaceholders = [
+                    JPUSH_PKGNAME: "com.milike",
+                    JPUSH_APPKEY : "89ae4b688c1e49ab381f3d5a",
+                    JPUSH_CHANNEL: "MiLike",
+            ]
             signingConfig signingConfigs.release
             minifyEnabled true
             zipAlignEnabled true
