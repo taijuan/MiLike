@@ -7,10 +7,10 @@ import android.webkit.WebView
 
 class WebView4Scroll(context: Context, attrs: AttributeSet) : WebView(context, attrs) {
     private var onScrollTop: ((Int) -> Unit)? = null
-    var startX: Float = -1f
-    var startY: Float = -1f
-    var endX: Float = -1f
-    var endY: Float = -1f
+    private var startX: Float = -1f
+    private var startY: Float = -1f
+    private var endX: Float = -1f
+    private var endY: Float = -1f
 
     fun setOnScrollTop(onScrollTop: (Int) -> Unit) {
         this.onScrollTop = onScrollTop

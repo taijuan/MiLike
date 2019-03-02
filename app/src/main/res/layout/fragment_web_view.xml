@@ -23,26 +23,31 @@
                 app:layout_scrollFlags="enterAlways"/>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:fitsSystemWindows="true">
 
-        <com.milike.soft.widget.NoScrollViewPager
-                android:id="@+id/viewPager"
+        <FrameLayout
+                android:id="@+id/webViewContent"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_height="match_parent">
 
-        <View android:layout_width="match_parent"
-              android:layout_height="1px"
-              android:background="@android:color/darker_gray"/>
+            <com.milike.soft.widget.WebView4Scroll
+                    android:id="@+id/webView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
-        <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                app:tabIndicatorHeight="0dp"/>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            <pl.droidsonroids.gif.GifImageView
+                    android:id="@+id/loading"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/loading"/>
+
+        </FrameLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -12,7 +12,7 @@ import com.milike.soft.BuildConfig
 import com.milike.soft.activity.WebActivity
 import org.json.JSONObject
 
-class MiLikeJavascriptInterface(val webView: WebView) {
+class MiLikeJavascriptInterface(private val webView: WebView) {
     @JavascriptInterface
     fun JsToJavaShare(jsonStr: String) {
         try {

@@ -4,18 +4,21 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebView
+import com.blankj.utilcode.util.BarUtils.getActionBarHeight
+import com.blankj.utilcode.util.ScreenUtils.getScreenDensity
 import com.milike.soft.R
 import com.milike.soft.base.BaseActivity
 import com.milike.soft.utils.MiLikeJavascriptInterface
 import com.milike.soft.utils.MiLikeWebViewClient
 import com.milike.soft.utils.getWebUrlSuffix
 import com.milike.soft.utils.initWebViewSetting
-import kotlinx.android.synthetic.main.layout_web_view.*
+import kotlinx.android.synthetic.main.fragment_web_view.*
 
 class WebActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.layout_web_view)
+        setContentView(R.layout.fragment_web_view)
+        webViewContent.setPadding(0, (getActionBarHeight() / getScreenDensity()).toInt(), 0, 0)
         webView.settings.initWebViewSetting()
         webView.webViewClient = object : MiLikeWebViewClient(intent.getBooleanExtra("isLogin", false)) {
             override fun onStart(view: WebView, url: String) {
