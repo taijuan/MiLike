@@ -8,7 +8,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.milike.soft.BuildConfig
-import com.milike.soft.utils.Utils
+import com.milike.soft.utils.AppUtils
 
 abstract class BaseFragment : Fragment() {
     private val broadcastReceiver: BroadcastReceiver by lazy {
@@ -22,13 +22,13 @@ abstract class BaseFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        LocalBroadcastManager.getInstance(Utils.getApp()).registerReceiver(broadcastReceiver, IntentFilter().apply {
+        LocalBroadcastManager.getInstance(AppUtils.getApp()).registerReceiver(broadcastReceiver, IntentFilter().apply {
             addAction("${BuildConfig.APPLICATION_ID}.refresh")
         })
     }
 
     override fun onDestroyView() {
-        LocalBroadcastManager.getInstance(Utils.getApp()).unregisterReceiver(broadcastReceiver)
+        LocalBroadcastManager.getInstance(AppUtils.getApp()).unregisterReceiver(broadcastReceiver)
         super.onDestroyView()
     }
 

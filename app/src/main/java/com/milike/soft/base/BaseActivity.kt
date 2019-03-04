@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.milike.soft.BuildConfig
 import com.milike.soft.utils.ActivityUtils
-import com.milike.soft.utils.Utils
+import com.milike.soft.utils.AppUtils
 import com.umeng.analytics.MobclickAgent
 
 abstract class BaseActivity : AppCompatActivity() {
@@ -25,7 +25,7 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActivityUtils.activityList.add(this)
-        LocalBroadcastManager.getInstance(Utils.getApp()).registerReceiver(broadcastReceiver, IntentFilter().apply {
+        LocalBroadcastManager.getInstance(AppUtils.getApp()).registerReceiver(broadcastReceiver, IntentFilter().apply {
             addAction("${BuildConfig.APPLICATION_ID}.refresh")
         })
     }

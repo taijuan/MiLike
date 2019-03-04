@@ -61,11 +61,11 @@ public final class SPUtils {
     }
 
     private SPUtils(final String spName) {
-        sp = Utils.getApp().getSharedPreferences(spName, Context.MODE_PRIVATE);
+        sp = AppUtils.getApp().getSharedPreferences(spName, Context.MODE_PRIVATE);
     }
 
     private SPUtils(final String spName, final int mode) {
-        sp = Utils.getApp().getSharedPreferences(spName, mode);
+        sp = AppUtils.getApp().getSharedPreferences(spName, mode);
     }
 
     /**

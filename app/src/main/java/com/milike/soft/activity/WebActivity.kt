@@ -5,16 +5,14 @@ import android.view.View
 import android.webkit.WebView
 import com.milike.soft.R
 import com.milike.soft.base.BaseActivity
-import com.milike.soft.utils.MiLikeJavascriptInterface
-import com.milike.soft.utils.MiLikeWebViewClient
-import com.milike.soft.utils.getWebUrlSuffix
-import com.milike.soft.utils.initWebViewSetting
+import com.milike.soft.utils.*
 import kotlinx.android.synthetic.main.view_web.*
 
 class WebActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web)
+        webViewContent.setPadding(0, BarUtils.getBarHeightToDP(), 0, 0)
         webView.settings.initWebViewSetting()
         webView.webViewClient = object : MiLikeWebViewClient(intent.getBooleanExtra("isLogin", false)) {
             override fun onStart(view: WebView, url: String) {

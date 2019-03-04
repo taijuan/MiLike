@@ -49,6 +49,6 @@ fun WebSettings.initWebViewSetting() {
     this.userAgentString = "$userAgentString ${BuildConfig.APPLICATION_ID}"
     this.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
     this.setAppCacheEnabled(true)
-    this.setAppCachePath(Utils.getApp().cacheDir.absolutePath)
+    this.setAppCachePath(AppUtils.getApp().cacheDir.absolutePath)
     this.cacheMode = WebSettings.LOAD_DEFAULT
 }

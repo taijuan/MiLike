@@ -19,6 +19,7 @@ class ConsultantFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        webViewContent.setPadding(0, BarUtils.getBarHeightToDP(), 0, 0)
         webView.settings.initWebViewSetting()
         webView.webViewClient = object : MiLikeWebViewClient() {
 

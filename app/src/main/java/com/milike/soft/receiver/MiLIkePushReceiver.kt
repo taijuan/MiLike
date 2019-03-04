@@ -9,7 +9,7 @@ import com.milike.soft.BuildConfig
 import com.milike.soft.activity.HomeActivity
 import com.milike.soft.activity.WebActivity
 import com.milike.soft.utils.ActivityUtils
-import com.milike.soft.utils.Utils
+import com.milike.soft.utils.AppUtils
 import org.json.JSONObject
 
 
@@ -35,15 +35,15 @@ class MiLIkePushReceiver : BroadcastReceiver() {
 
     private fun filterActionToIntent(url: String) {
         if (ActivityUtils.isActivityExistsInStack(HomeActivity::class.java)) {
-            Utils.getApp().startActivity(Intent(Utils.getApp(), WebActivity::class.java).apply {
+            AppUtils.getApp().startActivity(Intent(AppUtils.getApp(), WebActivity::class.java).apply {
                 putExtra("url", url)
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             })
         } else {
-            Utils.getApp().packageManager.getLaunchIntentForPackage(BuildConfig.APPLICATION_ID)?.apply {
+            AppUtils.getApp().packageManager.getLaunchIntentForPackage(BuildConfig.APPLICATION_ID)?.apply {
                 putExtra("url", url)
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                Utils.getApp().startActivity(this)
+                AppUtils.getApp().startActivity(this)
             }
         }
     }

@@ -32,12 +32,12 @@ class MiLikeJavascriptInterface(private val webView: WebView) {
     @JavascriptInterface
     fun nextPage(url: String) {
         if (url.startsWith("http://") || url.startsWith("https://")) {
-            Utils.getApp().startActivity(Intent(Utils.getApp(), WebActivity::class.java).apply {
+            AppUtils.getApp().startActivity(Intent(AppUtils.getApp(), WebActivity::class.java).apply {
                 putExtra("url", getWebUrlSuffix(url))
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             })
         } else {
-            Utils.getApp().startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+            AppUtils.getApp().startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             })
         }
@@ -92,7 +92,7 @@ class MiLikeJavascriptInterface(private val webView: WebView) {
         if (activity is Activity) {
             activity.finish()
         }
-        LocalBroadcastManager.getInstance(Utils.getApp()).sendBroadcast(Intent().apply {
+        LocalBroadcastManager.getInstance(AppUtils.getApp()).sendBroadcast(Intent().apply {
             action = "${BuildConfig.APPLICATION_ID}.refresh"
         })
     }
@@ -105,7 +105,7 @@ class MiLikeJavascriptInterface(private val webView: WebView) {
         if (activity is Activity) {
             activity.finish()
         }
-        LocalBroadcastManager.getInstance(Utils.getApp()).sendBroadcast(Intent().apply {
+        LocalBroadcastManager.getInstance(AppUtils.getApp()).sendBroadcast(Intent().apply {
             action = "${BuildConfig.APPLICATION_ID}.refresh"
         })
     }
@@ -115,7 +115,7 @@ class MiLikeJavascriptInterface(private val webView: WebView) {
     fun cityCode(cityCode: String) {
         if (!cityCode.isEmpty()) {
             SPUtils.getInstance().put("cityCode", cityCode)
-            LocalBroadcastManager.getInstance(Utils.getApp()).sendBroadcast(Intent().apply {
+            LocalBroadcastManager.getInstance(AppUtils.getApp()).sendBroadcast(Intent().apply {
                 action = "${BuildConfig.APPLICATION_ID}.refresh"
             })
         }

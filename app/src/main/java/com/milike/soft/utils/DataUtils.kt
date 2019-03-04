@@ -20,7 +20,7 @@ fun getWebUrlSuffix(url: String): String {
 @SuppressLint("HardwareIds")
 fun getAndroidID(): String {
     return Settings.Secure.getString(
-        Utils.getApp().contentResolver,
+        AppUtils.getApp().contentResolver,
         Settings.Secure.ANDROID_ID
     ) ?: ""
 }

@@ -97,7 +97,7 @@ abstract class MiLikeWebViewClient(private val isLogon: Boolean = false) : WebVi
             val goBack = Uri.parse(url).getBooleanQueryParameter("goBack", true)
             val refresh = Uri.parse(url).getBooleanQueryParameter("refresh", false)
             if (refresh) {
-                LocalBroadcastManager.getInstance(Utils.getApp()).sendBroadcast(Intent().apply {
+                LocalBroadcastManager.getInstance(AppUtils.getApp()).sendBroadcast(Intent().apply {
                     action = "${BuildConfig.APPLICATION_ID}.refresh"
                 })
             }
@@ -118,14 +118,14 @@ abstract class MiLikeWebViewClient(private val isLogon: Boolean = false) : WebVi
             val cityCode = Uri.parse(url).getQueryParameter("cityCode")
             if (!cityCode.isNullOrEmpty()) {
                 SPUtils.getInstance().put("cityCode", cityCode)
-                LocalBroadcastManager.getInstance(Utils.getApp()).sendBroadcast(Intent().apply {
+                LocalBroadcastManager.getInstance(AppUtils.getApp()).sendBroadcast(Intent().apply {
                     action = "${BuildConfig.APPLICATION_ID}.refresh"
                 })
             }
         } else if (url == "js://refreshUrl") {
             view.goBack()
         } else if (url.contains("/login_code.htm") && !isLogon) {
-            Utils.getApp().startActivity(Intent(Utils.getApp(), WebActivity::class.java).apply {
+            AppUtils.getApp().startActivity(Intent(AppUtils.getApp(), WebActivity::class.java).apply {
                 putExtra("url", url)
                 putExtra("isLogin", true)
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -133,7 +133,7 @@ abstract class MiLikeWebViewClient(private val isLogon: Boolean = false) : WebVi
         } else if (url.startsWith("tel:") || url.startsWith("sms:")
             || url.startsWith("smsto:") || url.startsWith("mmsto:") || url.startsWith("geo:")
         ) {
-            Utils.getApp().startActivity(Intent(
+            AppUtils.getApp().startActivity(Intent(
                 Intent.ACTION_VIEW,
                 Uri.parse(url)
             ).apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) })
