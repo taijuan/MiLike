@@ -6,8 +6,6 @@ import android.net.Uri
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.blankj.utilcode.util.SPUtils
-import com.blankj.utilcode.util.Utils
 import com.milike.soft.BuildConfig
 import com.milike.soft.activity.WebActivity
 import org.json.JSONObject

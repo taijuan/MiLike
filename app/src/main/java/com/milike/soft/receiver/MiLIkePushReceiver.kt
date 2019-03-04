@@ -5,13 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.text.TextUtils
 import cn.jpush.android.api.JPushInterface
-import com.blankj.utilcode.util.ActivityUtils
-import com.blankj.utilcode.util.IntentUtils
-import com.blankj.utilcode.util.Utils
 import com.milike.soft.BuildConfig
 import com.milike.soft.activity.HomeActivity
 import com.milike.soft.activity.WebActivity
+import com.milike.soft.utils.ActivityUtils
+import com.milike.soft.utils.Utils
 import org.json.JSONObject
+
 
 class MiLIkePushReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -40,10 +40,11 @@ class MiLIkePushReceiver : BroadcastReceiver() {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             })
         } else {
-            Utils.getApp().startActivity(IntentUtils.getLaunchAppIntent(BuildConfig.APPLICATION_ID).apply {
+            Utils.getApp().packageManager.getLaunchIntentForPackage(BuildConfig.APPLICATION_ID)?.apply {
                 putExtra("url", url)
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            })
+                Utils.getApp().startActivity(this)
+            }
         }
     }
 }

@@ -2,8 +2,8 @@ package com.milike.soft.base
 
 import android.app.Application
 import cn.jpush.android.api.JPushInterface
-import com.blankj.utilcode.util.Utils
 import com.milike.soft.BuildConfig
+import com.milike.soft.utils.Utils
 import com.umeng.commonsdk.UMConfigure
 
 class MiLikeApplication : Application() {

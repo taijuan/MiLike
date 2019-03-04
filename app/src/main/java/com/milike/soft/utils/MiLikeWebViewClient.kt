@@ -10,9 +10,6 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.blankj.utilcode.util.NetworkUtils
-import com.blankj.utilcode.util.SPUtils
-import com.blankj.utilcode.util.Utils
 import com.milike.soft.BuildConfig
 import com.milike.soft.activity.WebActivity
 
@@ -65,12 +62,12 @@ abstract class MiLikeWebViewClient(private val isLogon: Boolean = false) : WebVi
     override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
         Log.e("zuiwengxxxxxxx Error", request?.url.toString())
         if (view != null && request != null) {
-            val url = request?.url.toString()
+            val url = request.url.toString()
             if (!interceptDefUrlLoading(url) && !interceptUrlLoading(view, url) && request.isForMainFrame) {
                 if (NetworkUtils.isConnected()) {
-                    view?.loadUrl("file:///android_asset/404.html")
+                    view.loadUrl("file:///android_asset/404.html")
                 } else {
-                    view?.loadUrl("file:///android_asset/network_error.html")
+                    view.loadUrl("file:///android_asset/network_error.html")
                 }
             }
         }

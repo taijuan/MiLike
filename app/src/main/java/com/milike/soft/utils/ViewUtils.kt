@@ -6,7 +6,6 @@ import android.annotation.SuppressLint
 import android.view.View
 import android.webkit.WebSettings
 import androidx.viewpager.widget.ViewPager
-import com.blankj.utilcode.util.Utils
 import com.milike.soft.BuildConfig
 
 fun View.onClick(interval: Long = 500L, body: () -> Unit) {

@@ -7,26 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
-import com.blankj.utilcode.util.BarUtils.getActionBarHeight
-import com.blankj.utilcode.util.SPUtils
-import com.blankj.utilcode.util.ScreenUtils.getScreenDensity
 import com.milike.soft.BuildConfig.DNS
 import com.milike.soft.R
 import com.milike.soft.base.BaseFragment
-import com.milike.soft.utils.MiLikeJavascriptInterface
-import com.milike.soft.utils.MiLikeWebViewClient
-import com.milike.soft.utils.getWebUrlSuffix
-import com.milike.soft.utils.initWebViewSetting
-import kotlinx.android.synthetic.main.fragment_web_view.*
+import com.milike.soft.utils.*
+import kotlinx.android.synthetic.main.fragment_web.*
+import kotlinx.android.synthetic.main.view_web.*
 
 class MeFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-        inflater.inflate(R.layout.fragment_web_view, container, false)
+        inflater.inflate(R.layout.fragment_web, container, false)
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        webViewContent.setPadding(0, (getActionBarHeight() / getScreenDensity()).toInt(), 0, 0)
         webView.settings.initWebViewSetting()
         webView.webViewClient = object : MiLikeWebViewClient() {
             override fun onStart(view: WebView, url: String) {

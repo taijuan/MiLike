@@ -1,48 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<merge
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        tools:context=".activity.HomeActivity">
-
-    <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@android:color/transparent"
-            android:fitsSystemWindows="true">
-
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:elevation="0dp"
-                android:fitsSystemWindows="true"
-                app:layout_scrollFlags="enterAlways"/>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
+        android:fitsSystemWindows="true">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:fitsSystemWindows="true">
+            android:fitsSystemWindows="true"
+            tools:context=".activity.HomeActivity">
 
-        <com.milike.soft.widget.NoScrollViewPager
-                android:id="@+id/viewPager"
+        <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:background="@android:color/transparent"
+                android:fitsSystemWindows="true">
 
-        <View android:layout_width="match_parent"
-              android:layout_height="1px"
-              android:background="@android:color/darker_gray"/>
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:elevation="0dp"
+                    android:fitsSystemWindows="true"
+                    app:layout_scrollFlags="enterAlways"/>
+        </com.google.android.material.appbar.AppBarLayout>
 
-        <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
+        <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                app:tabIndicatorHeight="0dp"/>
-    </androidx.appcompat.widget.LinearLayoutCompat>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:fitsSystemWindows="true">
+
+            <com.milike.soft.widget.NoScrollViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+            <View android:layout_width="match_parent"
+                  android:layout_height="1px"
+                  android:background="@android:color/darker_gray"/>
+
+            <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    app:tabIndicatorHeight="0dp"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</merge>

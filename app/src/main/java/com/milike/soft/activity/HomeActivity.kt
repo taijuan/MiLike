@@ -12,7 +12,6 @@ import androidx.core.content.ContextCompat
 import com.azhon.appupdate.config.UpdateConfiguration
 import com.azhon.appupdate.manager.DownloadManager
 import com.azhon.appupdate.utils.Constant
-import com.blankj.utilcode.util.SPUtils
 import com.milike.soft.BuildConfig
 import com.milike.soft.BuildConfig.DNS
 import com.milike.soft.R
@@ -21,6 +20,7 @@ import com.milike.soft.fragment.ConsultantFragment
 import com.milike.soft.fragment.HeadlineFragment
 import com.milike.soft.fragment.HomeFragment
 import com.milike.soft.fragment.MeFragment
+import com.milike.soft.utils.SPUtils
 import kotlinx.android.synthetic.main.activity_home.*
 import org.json.JSONObject
 import java.net.HttpURLConnection
@@ -59,6 +59,11 @@ class HomeActivity : BaseActivity() {
         tabItem(R.string.page4, R.drawable.me_selected, R.drawable.me)
         getAppVersion()
         filterActionToIntent()
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        filterActionToIntent()
+        super.onNewIntent(intent)
     }
 
     private fun filterActionToIntent() {

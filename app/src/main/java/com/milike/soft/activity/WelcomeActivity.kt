@@ -4,11 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import cn.jpush.android.api.JPushInterface
-import com.blankj.utilcode.constant.PermissionConstants
-import com.blankj.utilcode.util.PermissionUtils
-import com.blankj.utilcode.util.SPUtils
 import com.milike.soft.BuildConfig
 import com.milike.soft.base.BaseActivity
+import com.milike.soft.utils.PermissionConstants
+import com.milike.soft.utils.PermissionUtils
+import com.milike.soft.utils.SPUtils
 
 class WelcomeActivity : BaseActivity() {
 
@@ -22,8 +22,7 @@ class WelcomeActivity : BaseActivity() {
             PermissionConstants.LOCATION,
             PermissionConstants.STORAGE,
             PermissionConstants.SMS
-        ).callback(object :
-            PermissionUtils.SimpleCallback {
+        ).callback(object : PermissionUtils.SimpleCallback {
             override fun onGranted() {
                 goHomeOrGuide()
             }

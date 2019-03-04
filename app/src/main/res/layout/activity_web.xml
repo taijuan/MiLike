@@ -22,32 +22,5 @@
                 android:fitsSystemWindows="true"
                 app:layout_scrollFlags="enterAlways"/>
     </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/swipeRefreshLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true">
-
-        <FrameLayout
-                android:id="@+id/webViewContent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            <com.milike.soft.widget.WebView4Scroll
-                    android:id="@+id/webView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
-            <pl.droidsonroids.gif.GifImageView
-                    android:id="@+id/loading"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/loading"/>
-
-        </FrameLayout>
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <include layout="@layout/view_web"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

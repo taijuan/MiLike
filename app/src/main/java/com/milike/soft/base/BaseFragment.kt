@@ -7,8 +7,8 @@ import android.content.IntentFilter
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.blankj.utilcode.util.Utils
 import com.milike.soft.BuildConfig
+import com.milike.soft.utils.Utils
 
 abstract class BaseFragment : Fragment() {
     private val broadcastReceiver: BroadcastReceiver by lazy {
