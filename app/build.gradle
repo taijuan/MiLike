@@ -41,7 +41,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.milike"
-        minSdkVersion 21
+        minSdkVersion 15
         targetSdkVersion 28
         versionCode 202
         versionName "2.0.2"
