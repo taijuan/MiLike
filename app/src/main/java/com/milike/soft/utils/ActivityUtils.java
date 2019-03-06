@@ -8,8 +8,8 @@ public class ActivityUtils {
     public static final ArrayList<BaseActivity> activityList = new ArrayList<>();
 
     public static boolean isActivityExistsInStack(Class<? extends BaseActivity> clazz) {
-        for (BaseActivity aActivity : activityList) {
-            if (aActivity.getClass().equals(clazz)) {
+        for (BaseActivity a : activityList) {
+            if (a != null && a.getClass().equals(clazz)) {
                 return true;
             }
         }

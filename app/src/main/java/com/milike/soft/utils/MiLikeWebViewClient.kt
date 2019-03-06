@@ -102,7 +102,7 @@ abstract class MiLikeWebViewClient(private val isLogon: Boolean = false) : WebVi
                 })
             }
             if (goBack) {
-                (view.context as Activity).finish()
+                (view.context as? Activity)?.finish()
             }
         } else if (url.contains("js://jstojava?platform")) {
             val uri = Uri.parse(url)
@@ -138,8 +138,9 @@ abstract class MiLikeWebViewClient(private val isLogon: Boolean = false) : WebVi
                 Uri.parse(url)
             ).apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) })
         } else {
-            (view.context as Activity).startActivity(Intent(view.context, WebActivity::class.java).apply {
+            AppUtils.getApp().startActivity(Intent(view.context, WebActivity::class.java).apply {
                 putExtra("url", url)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             })
         }
     }

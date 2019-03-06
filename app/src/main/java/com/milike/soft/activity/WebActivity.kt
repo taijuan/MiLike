@@ -6,6 +6,7 @@ import android.webkit.WebView
 import com.milike.soft.R
 import com.milike.soft.base.BaseActivity
 import com.milike.soft.utils.*
+import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.view_web.*
 
 class WebActivity : BaseActivity() {
@@ -13,8 +14,8 @@ class WebActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web)
         webViewContent.setPadding(0, BarUtils.getBarHeightToDP(), 0, 0)
-        webView.settings.initWebViewSetting()
-        webView.webViewClient = object : MiLikeWebViewClient(intent.getBooleanExtra("isLogin", false)) {
+        webView?.settings?.initWebViewSetting()
+        webView?.webViewClient = object : MiLikeWebViewClient(intent.getBooleanExtra("isLogin", false)) {
             override fun onStart(view: WebView, url: String) {
                 loading?.visibility = View.VISIBLE
             }
@@ -60,6 +61,14 @@ class WebActivity : BaseActivity() {
         webView?.also {
             webViewContent?.removeView(it)
             it.removeAllViews()
+            it.clearAnimation()
+            it.clearFocus()
+            it.clearFormData()
+            it.clearSslPreferences()
+            it.clearMatches()
+            it.clearHistory()
+            it.clearFindViewByIdCache()
+            it.removeJavascriptInterface("android")
             it.destroy()
         }
         super.onDestroy()

@@ -9,6 +9,7 @@ import android.view.Gravity
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentStatePagerAdapter
 import com.azhon.appupdate.config.UpdateConfiguration
 import com.azhon.appupdate.manager.DownloadManager
 import com.azhon.appupdate.utils.Constant
@@ -40,7 +41,7 @@ class HomeActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         SPUtils.getInstance().put("versionCode", BuildConfig.VERSION_CODE)
-        viewPager.adapter = object : androidx.fragment.app.FragmentPagerAdapter(supportFragmentManager) {
+        viewPager.adapter = object : FragmentStatePagerAdapter(supportFragmentManager) {
             override fun getItem(position: Int) = when (position) {
                 0 -> HomeFragment()
                 1 -> HeadlineFragment()

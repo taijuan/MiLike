@@ -4,9 +4,9 @@ import android.annotation.SuppressLint
 import android.provider.Settings
 
 
-
 fun getWebUrlSuffix(url: String): String {
-    return StringBuilder(url).append(if (url.contains("?")) "&" else "?")
+    val a = url.contains("?")
+    return StringBuilder(url).append(if (a) "&" else "?")
         .append("flag").append("=").append("milike").append("&")
         .append("mid").append("=").append(getAndroidID()).append("&")
         .append("tm").append("=").append(System.currentTimeMillis()).append("&")

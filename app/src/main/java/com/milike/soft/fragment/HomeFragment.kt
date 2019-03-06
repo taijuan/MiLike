@@ -8,17 +8,16 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import com.milike.soft.BuildConfig.DNS
 import com.milike.soft.R
-import com.milike.soft.base.BaseFragment
+import com.milike.soft.base.LazyLoadBaseFragment
 import com.milike.soft.utils.*
 import kotlinx.android.synthetic.main.fragment_web.*
 import kotlinx.android.synthetic.main.view_web.*
 
-class HomeFragment : BaseFragment() {
+class HomeFragment : LazyLoadBaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_web, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onFragmentFirstVisible() {
         webViewContent.setPadding(0, BarUtils.getBarHeightToDP(), 0, 0)
         webView.settings.initWebViewSetting()
         webView.webViewClient = object : MiLikeWebViewClient() {

@@ -31,13 +31,13 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        MobclickAgent.onResume(this)
         super.onResume()
+        MobclickAgent.onResume(this)
     }
 
     override fun onPause() {
-        MobclickAgent.onPause(this)
         super.onPause()
+        MobclickAgent.onPause(this)
     }
 
     override fun onDestroy() {
