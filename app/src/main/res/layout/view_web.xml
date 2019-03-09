@@ -11,10 +11,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-    <pl.droidsonroids.gif.GifImageView
-            android:id="@+id/loading"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:src="@drawable/loading"/>
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:id="@+id/loading"
+                 android:clickable="true"
+                 android:focusable="true">
+        <pl.droidsonroids.gif.GifImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:src="@drawable/loading"/>
+    </FrameLayout>
 </FrameLayout>

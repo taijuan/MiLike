@@ -50,10 +50,7 @@ class MiLikeJavascriptInterface(private val webView: WebView) {
             if (webView.canGoBack()) {
                 webView.goBack()
             } else {
-                val activity = webView.context
-                if (activity is Activity) {
-                    activity.finish()
-                }
+                webView.reload()
             }
         }
     }
