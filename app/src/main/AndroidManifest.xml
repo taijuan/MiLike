@@ -38,13 +38,6 @@
         <activity android:name=".activity.WebActivity"
                   android:theme="@style/AppTheme"/>
 
-        <activity
-                android:name=".utils.PermissionUtils$PermissionActivity"
-                android:configChanges="orientation|keyboardHidden|screenSize"
-                android:multiprocess="true"
-                android:theme="@style/ActivityTranslucent"
-                android:windowSoftInputMode="stateHidden|stateAlwaysHidden"/>
-
         <provider
                 android:name="androidx.core.content.FileProvider"
                 android:authorities="${applicationId}"
