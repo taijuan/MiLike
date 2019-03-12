@@ -20,8 +20,7 @@ import java.lang.reflect.Method;
 public class InputMethodManagerLeakUtils {
     public static void fixFocusedViewLeak(Application application) {
 
-        // Don't know about other versions yet.
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1|| Build.VERSION.SDK_INT > 23) {
+        if (Build.VERSION.SDK_INT > 23) {
             return;
         }
 
@@ -48,36 +47,37 @@ public class InputMethodManagerLeakUtils {
 
         application.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
             @Override
-            public void onActivityDestroyed(Activity activity){
+            public void onActivityDestroyed(Activity activity) {
 
             }
 
             @Override
-            public void onActivityStarted(Activity activity){
+            public void onActivityStarted(Activity activity) {
 
             }
 
             @Override
-            public void onActivityResumed(Activity activity){
+            public void onActivityResumed(Activity activity) {
 
             }
 
             @Override
-            public void onActivityPaused(Activity activity){
+            public void onActivityPaused(Activity activity) {
 
             }
 
             @Override
-            public void onActivityStopped(Activity activity){
+            public void onActivityStopped(Activity activity) {
 
             }
 
             @Override
-            public void onActivitySaveInstanceState(Activity activity, Bundle bundle){
+            public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
 
             }
 
-            @Override public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
                 ReferenceCleaner cleaner = new ReferenceCleaner(inputMethodManager, mHField, mServedViewField,
                         finishInputLockedMethod);
                 View rootView = activity.getWindow().getDecorView().getRootView();
@@ -104,7 +104,8 @@ public class InputMethodManagerLeakUtils {
             this.finishInputLockedMethod = finishInputLockedMethod;
         }
 
-        @Override public void onGlobalFocusChanged(View oldFocus, View newFocus) {
+        @Override
+        public void onGlobalFocusChanged(View oldFocus, View newFocus) {
             if (newFocus == null) {
                 return;
             }
@@ -115,16 +116,19 @@ public class InputMethodManagerLeakUtils {
             newFocus.addOnAttachStateChangeListener(this);
         }
 
-        @Override public void onViewAttachedToWindow(View v) {
+        @Override
+        public void onViewAttachedToWindow(View v) {
         }
 
-        @Override public void onViewDetachedFromWindow(View v) {
+        @Override
+        public void onViewDetachedFromWindow(View v) {
             v.removeOnAttachStateChangeListener(this);
             Looper.myQueue().removeIdleHandler(this);
             Looper.myQueue().addIdleHandler(this);
         }
 
-        @Override public boolean queueIdle() {
+        @Override
+        public boolean queueIdle() {
             clearInputMethodManagerLeak();
             return false;
         }
