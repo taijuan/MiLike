@@ -5,14 +5,12 @@ import cn.jpush.android.api.JPushInterface
 import com.milike.soft.BuildConfig
 import com.milike.soft.utils.AppUtils
 import com.milike.soft.utils.FixBugFinalizeTimeOutUtils
-import com.milike.soft.utils.InputMethodManagerLeakUtils
 import com.squareup.leakcanary.LeakCanary
 import com.umeng.commonsdk.UMConfigure
 
 class MiLikeApplication : Application() {
     override fun onCreate() {
         FixBugFinalizeTimeOutUtils.fix()
-        InputMethodManagerLeakUtils.fixFocusedViewLeak(this)
         initLeakCanary()
         AppUtils.init(this)
         JPushInterface.setDebugMode(true)
@@ -23,9 +21,6 @@ class MiLikeApplication : Application() {
     }
 
     private fun initLeakCanary() {
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return
-        }
         LeakCanary.install(this)
     }
 }
