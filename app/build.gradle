@@ -120,7 +120,7 @@ android {
 
         alpha {
             applicationIdSuffix ".alpha"
-            buildConfigField "String", "DNS", '"http://119.29.248.44:38083/"'
+            buildConfigField "String", "DNS", '"http://111.230.129.246:9084/"'
             resValue "string", "app_name", "觅房alpha"
             manifestPlaceholders = [
                     JPUSH_PKGNAME: "com.milike.alpha",
