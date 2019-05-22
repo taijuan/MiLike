@@ -6,11 +6,11 @@ import android.util.Log
 import android.view.View
 
 fun topHeight(): Int {
-    return if (displayHeight != 0) {
-        displayHeight
-    } else {
-        statusHeight()
-    }
+//    return if (displayHeight != 0) {
+//        displayHeight
+//    } else {
+    return statusHeight()
+//    }
 }
 
 fun statusHeight(): Int {
