@@ -2,9 +2,11 @@ package com.milike.soft.fragment
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebChromeClient
 import android.webkit.WebView
 import com.milike.soft.BuildConfig.DNS
 import com.milike.soft.R
@@ -18,8 +20,13 @@ class HomeFragment : LazyLoadBaseFragment() {
         inflater.inflate(R.layout.fragment_web, container, false)
 
     override fun onFragmentFirstVisible() {
-        webViewContent.setPadding(0, BarUtils.getBarHeightToDP(), 0, 0)
+        webViewContent.setPadding(0, topHeight(), 0, 0)
         webView.settings.initWebViewSetting()
+        webView.webChromeClient = object :WebChromeClient(){
+            override fun onProgressChanged(view: WebView?, newProgress: Int) {
+                Log.e("zuiweng  onProgressChanged",newProgress.toString())
+            }
+        }
         webView.webViewClient = object : MiLikeWebViewClient() {
             override fun onStart(view: WebView, url: String) {
                 loading?.visibility = View.VISIBLE

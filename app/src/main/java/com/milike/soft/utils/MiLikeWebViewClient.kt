@@ -18,7 +18,7 @@ abstract class MiLikeWebViewClient(private val isLogon: Boolean = false) : WebVi
     override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
         val url = request?.url.toString()
         Log.e("zuiwengxxxxxxx", url)
-        return if (view != null && !url.isEmpty()) {
+        return if (view != null && url.isNotEmpty()) {
             when {
                 interceptDefUrlLoading(url) || interceptUrlLoading(view, url) -> {
                     filterAction(url, view)
@@ -37,7 +37,7 @@ abstract class MiLikeWebViewClient(private val isLogon: Boolean = false) : WebVi
     }
 
     override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-        Log.e("zuiwengxxxxxxx", url)
+        Log.e("zuiwengxxxxxxx start", url)
         if (view != null && !url.isNullOrEmpty()) {
             when {
                 interceptDefUrlLoading(url) || interceptUrlLoading(view, url) -> {

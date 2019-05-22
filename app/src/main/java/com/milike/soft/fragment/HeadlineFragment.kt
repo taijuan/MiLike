@@ -18,7 +18,7 @@ class HeadlineFragment : LazyLoadBaseFragment() {
         inflater.inflate(R.layout.fragment_web, container, false)
 
     override fun onFragmentFirstVisible() {
-        webViewContent.setPadding(0, BarUtils.getBarHeightToDP(), 0, 0)
+        webViewContent.setPadding(0, topHeight(), 0, 0)
         webView.settings.initWebViewSetting()
         webView.webViewClient = object : MiLikeWebViewClient() {
             override fun onStart(view: WebView, url: String) {

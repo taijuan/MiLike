@@ -10,15 +10,18 @@ import cn.jpush.android.api.JPushInterface
 import com.milike.soft.BuildConfig
 import com.milike.soft.base.BaseActivity
 import com.milike.soft.utils.SPUtils
+import com.milike.soft.utils.initDisplayCutout
 
 class WelcomeActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val uuid = JPushInterface.getRegistrationID(this)
-        Log.e("zuiweng", uuid)
-        SPUtils.getInstance().put("uuid", uuid)
-        requestPermissions()
+        window.decorView.initDisplayCutout {
+            val uuid = JPushInterface.getRegistrationID(this)
+            Log.e("zuiweng", uuid)
+            SPUtils.getInstance().put("uuid", uuid)
+            requestPermissions()
+        }
     }
 
     private fun requestPermissions() {
