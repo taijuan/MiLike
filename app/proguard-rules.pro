@@ -17,6 +17,7 @@
 -keep class **.R{*;}
 -keep class com.mob.**{*;}
 -keep class m.framework.**{*;}
+-keep class com.bytedance.**{*;}
 -dontwarn cn.sharesdk.**
 -dontwarn com.sina.**
 -dontwarn com.mob.**

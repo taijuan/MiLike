@@ -166,8 +166,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.core:core:1.2.0-alpha01'
-    implementation 'com.google.android.material:material:1.1.0-alpha06'
+    implementation 'androidx.core:core:1.2.0-alpha02'
+    implementation 'com.google.android.material:material:1.1.0-alpha07'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.1'
     implementation 'com.azhon:appupdate:2.0.0'
     implementation 'cn.jiguang.sdk:jpush:3.1.6'
